@@ -1,0 +1,17 @@
+.Home {
+  height: 100%;
+}
+
+.Home .lander {
+  padding-top: 20vh;
+  text-align: center;
+}
+
+.Home .lander .heading-primary {
+  font-size: 4rem;
+  margin: 0;
+}
+
+.Home .lander .heading-secondary {
+  font-size: 2rem;
+}
