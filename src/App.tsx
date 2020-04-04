@@ -1,27 +1,17 @@
 import React, { FunctionComponent } from 'react';
-import { Link } from 'react-router-dom';
 import { Layout } from 'antd';
 import Routes from './Routes';
-import logo from './assets/logo.png';
-import './App.css';
+import Header from './components/Header';
 
 const App: FunctionComponent = () => {
-  const { Header, Content } = Layout;
+  const { Content } = Layout;
   return (
-    <div className="App">
-      <Layout className="layout">
-        <Header>
-          <Link to="/">
-            <div className="logo-box">
-              <img src={logo} alt="Logo" className="logo" />
-            </div>
-          </Link>
-        </Header>
-        <Content className="content">
-          <Routes />
-        </Content>
-      </Layout>
-    </div>
+    <Layout className="app">
+      <Header />
+      <Content className="app__content">
+        <Routes />
+      </Content>
+    </Layout>
   );
 };
 

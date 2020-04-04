@@ -1,0 +1,21 @@
+.header {
+  padding: 0 1rem;
+
+  &__container {
+    height: 100%;
+
+    @include respond(xl) {
+      max-width: $max-width;
+      margin: 0 auto;
+    }
+  }
+
+  &__logo-box {
+    display: inline-block;
+    height: 100%;
+  }
+
+  &__logo {
+    height: 60%;
+  }
+}

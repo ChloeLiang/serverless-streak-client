@@ -1,0 +1,11 @@
+.nav {
+  float: right;
+
+  &__item {
+    display: inline-block;
+
+    &:not(:last-child) {
+      margin-right: 2rem;
+    }
+  }
+}

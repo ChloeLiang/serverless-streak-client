@@ -1,0 +1,44 @@
+@mixin clearfix {
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
+@mixin absCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin respond($breakpoint) {
+  // 576px
+  @if $breakpoint == sm {
+    @media (min-width: 36em) {
+      @content;
+    }
+  }
+
+  // 768px
+  @if $breakpoint == md {
+    @media (min-width: 48em) {
+      @content;
+    }
+  }
+
+  // 992px
+  @if $breakpoint == lg {
+    @media (min-width: 62em) {
+      @content;
+    }
+  }
+
+  // 1200px
+  @if $breakpoint == xl {
+    @media (min-width: 75em) {
+      @content;
+    }
+  }
+}
