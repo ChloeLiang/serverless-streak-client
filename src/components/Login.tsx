@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { Form, Input, Button } from 'antd';
+import ERROR from '../constants/error';
 
 const Login: FunctionComponent = () => {
   /**
@@ -22,8 +23,8 @@ const Login: FunctionComponent = () => {
           label="Username"
           name="username"
           rules={[
-            { required: true, message: 'Username is required' },
-            { type: 'email', message: 'Username must be a valid email' },
+            { required: true, message: ERROR.REQUIRED_USERNAME },
+            { type: 'email', message: ERROR.INVALID_USERNAME },
           ]}
           hasFeedback
         >
@@ -34,11 +35,10 @@ const Login: FunctionComponent = () => {
           label="Password"
           name="password"
           rules={[
-            { required: true, message: 'Password is required' },
+            { required: true, message: ERROR.REQUIRED_PASSWORD },
             {
               pattern: new RegExp('^\\S{8,20}$'),
-              message:
-                'Password must be at least 8 and not more than 20 non-whitespace characters.',
+              message: ERROR.INVALID_PASSWORD,
             },
           ]}
           hasFeedback

@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render basic component 1`] = `
+<header
+  class="ant-layout-header Header"
+>
+  <div
+    class="Header__container"
+  >
+    <a
+      href="/"
+    >
+      <div
+        class="Header__logo-box"
+      >
+        <img
+          alt="Logo"
+          class="Header__logo"
+          src="logo.png"
+        />
+      </div>
+    </a>
+    <nav
+      class="Navigation"
+    >
+      <ul>
+        <li
+          class="Navigation__item"
+        >
+          <a
+            href="/signup"
+          >
+            <button
+              class="ant-btn ant-btn-background-ghost"
+              type="button"
+            >
+              <span>
+                Sign Up
+              </span>
+            </button>
+          </a>
+        </li>
+        <li
+          class="Navigation__item"
+        >
+          <a
+            href="/login"
+          >
+            Login
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+`;

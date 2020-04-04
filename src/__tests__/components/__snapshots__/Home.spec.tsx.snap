@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render basic component 1`] = `
+<div
+  class="Home"
+>
+  <h1
+    class="heading-primary"
+  >
+    <span
+      class="heading-primary--main"
+    >
+      Streak
+    </span>
+    <span
+      class="heading-primary--sub"
+    >
+      A Simple Goal Tracking App
+    </span>
+  </h1>
+</div>
+`;
