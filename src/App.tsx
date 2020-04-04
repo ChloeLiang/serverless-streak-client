@@ -6,9 +6,9 @@ import Header from './components/Header';
 const App: FunctionComponent = () => {
   const { Content } = Layout;
   return (
-    <Layout className="app">
+    <Layout className="App">
       <Header />
-      <Content className="app__content">
+      <Content className="App__content">
         <Routes />
       </Content>
     </Layout>

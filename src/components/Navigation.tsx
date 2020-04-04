@@ -1,14 +1,17 @@
 import React, { FunctionComponent } from 'react';
 import { Link } from 'react-router-dom';
+import { Button } from 'antd';
 
 const Navigation: FunctionComponent = () => {
   return (
-    <nav className="nav">
+    <nav className="Navigation">
       <ul>
-        <li className="nav__item">
-          <Link to="/signup">Sign Up</Link>
+        <li className="Navigation__item">
+          <Link to="/signup">
+            <Button ghost>Sign Up</Button>
+          </Link>
         </li>
-        <li className="nav__item">
+        <li className="Navigation__item">
           <Link to="/login">Login</Link>
         </li>
       </ul>

@@ -7,11 +7,11 @@ import logo from '../assets/logo.png';
 const Header: FunctionComponent = () => {
   const { Header } = Layout;
   return (
-    <Header className="header">
-      <div className="header__container">
+    <Header className="Header">
+      <div className="Header__container">
         <Link to="/">
-          <div className="header__logo-box">
-            <img src={logo} alt="Logo" className="header__logo" />
+          <div className="Header__logo-box">
+            <img src={logo} alt="Logo" className="Header__logo" />
           </div>
         </Link>
         <Navigation />
