@@ -1,7 +1,16 @@
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
-import { render, cleanup, screen, fireEvent } from '@testing-library/react';
+import awsAmplify from 'aws-amplify';
+import {
+  render,
+  cleanup,
+  screen,
+  fireEvent,
+  waitForElementToBeRemoved,
+} from '@testing-library/react';
 import App from '../../App';
+
+jest.mock('aws-amplify');
 
 afterEach(cleanup);
 
@@ -19,22 +28,75 @@ Object.defineProperty(window, 'matchMedia', {
   })),
 });
 
-it('should render home page', () => {
+it('should render home page', async () => {
+  awsAmplify.Auth.currentSession.mockImplementationOnce(() => {
+    return Promise.reject('No current user');
+  });
   render(
     <MemoryRouter>
       <App />
     </MemoryRouter>
   );
+  await waitForElementToBeRemoved(() => screen.queryByText(/Loading/i));
   expect(screen.queryByText(/Streak/i)).toBeTruthy();
 });
 
-it('should render login from', () => {
+it('should show sign up and log in button if user is not authenticated', async () => {
+  awsAmplify.Auth.currentSession.mockImplementationOnce(() => {
+    return Promise.reject('No current user');
+  });
   render(
     <MemoryRouter>
       <App />
     </MemoryRouter>
   );
+  await waitForElementToBeRemoved(() => screen.queryByText(/Loading/i));
+  expect(screen.queryByText(/Sign up/i)).toBeTruthy();
+  expect(screen.queryByText(/Login/i)).toBeTruthy();
+  expect(screen.queryByText(/Logout/i)).toBeFalsy();
+});
+
+it('should show logout button if user is authenticated', async () => {
+  awsAmplify.Auth.currentSession.mockImplementationOnce(() => {
+    return Promise.resolve('success');
+  });
+  render(
+    <MemoryRouter>
+      <App />
+    </MemoryRouter>
+  );
+  await waitForElementToBeRemoved(() => screen.queryByText(/Loading/i));
+  expect(screen.queryByText(/Sign up/i)).toBeFalsy();
+  expect(screen.queryByText(/Login/i)).toBeFalsy();
+  expect(screen.queryByText(/Logout/i)).toBeTruthy();
+});
+
+it('should render login from', async () => {
+  awsAmplify.Auth.currentSession.mockImplementationOnce(() => {
+    return Promise.reject('No current user');
+  });
+  render(
+    <MemoryRouter>
+      <App />
+    </MemoryRouter>
+  );
+  await waitForElementToBeRemoved(() => screen.queryByText(/Loading/i));
   fireEvent.click(screen.getByText(/Login/i));
   expect(screen.queryByText(/Username/i)).toBeTruthy();
   expect(screen.queryByText(/Password/i)).toBeTruthy();
+});
+
+it('should log user out', async () => {
+  awsAmplify.Auth.currentSession.mockImplementationOnce(() => {
+    return Promise.resolve('success');
+  });
+  render(
+    <MemoryRouter>
+      <App />
+    </MemoryRouter>
+  );
+  await waitForElementToBeRemoved(() => screen.queryByText(/Loading/i));
+  fireEvent.click(screen.getByText(/Logout/i));
+  expect(screen.queryByText(/Sign up/i)).toBeTruthy();
+  expect(screen.queryByText(/Login/i)).toBeTruthy();
 });

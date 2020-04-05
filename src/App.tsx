@@ -1,6 +1,7 @@
-import React, { useState, FunctionComponent } from 'react';
+import React, { useState, FunctionComponent, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Layout } from 'antd';
+import { Auth } from 'aws-amplify';
 import Home from './components/Home';
 import NotFound from './components/NotFound';
 import Login from './components/Login';
@@ -9,8 +10,27 @@ import AuthContext from './contexts/AuthContext';
 
 const App: FunctionComponent = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticating, setIsAuthenticating] = useState(true);
+
   const { Content } = Layout;
-  return (
+
+  useEffect(() => {
+    onLoad();
+  }, []);
+
+  const onLoad = async () => {
+    try {
+      await Auth.currentSession();
+      setIsAuthenticated(true);
+    } catch (e) {
+      console.error(e);
+    }
+    setIsAuthenticating(false);
+  };
+
+  return isAuthenticating ? (
+    <p>Loading...</p>
+  ) : (
     <AuthContext.Provider value={[isAuthenticated, setIsAuthenticated]}>
       <Layout className="App">
         <Header />
