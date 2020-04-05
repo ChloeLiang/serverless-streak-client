@@ -4,6 +4,8 @@ import { render, cleanup, screen } from '@testing-library/react';
 import Navigation from '../../components/Navigation';
 import AuthContext from '../../contexts/AuthContext';
 
+jest.mock('aws-amplify');
+
 afterEach(cleanup);
 
 it('should render basic component', () => {

@@ -9,6 +9,7 @@ import {
   waitForElementToBeRemoved,
 } from '@testing-library/react';
 import App from '../../App';
+import { act } from 'react-dom/test-utils';
 
 jest.mock('aws-amplify');
 
@@ -90,6 +91,9 @@ it('should log user out', async () => {
   awsAmplify.Auth.currentSession.mockImplementationOnce(() => {
     return Promise.resolve('success');
   });
+  awsAmplify.Auth.signOut.mockImplementationOnce(() => {
+    return Promise.resolve('success');
+  });
   render(
     <MemoryRouter>
       <App />
@@ -97,6 +101,7 @@ it('should log user out', async () => {
   );
   await waitForElementToBeRemoved(() => screen.queryByText(/Loading/i));
   fireEvent.click(screen.getByText(/Logout/i));
+  await waitForElementToBeRemoved(() => screen.queryByText(/Logout/i));
   expect(screen.queryByText(/Sign up/i)).toBeTruthy();
   expect(screen.queryByText(/Login/i)).toBeTruthy();
 });

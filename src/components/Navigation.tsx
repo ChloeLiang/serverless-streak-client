@@ -2,11 +2,13 @@ import React, { useContext, FunctionComponent } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from 'antd';
 import AuthContext from '../contexts/AuthContext';
+import { Auth } from 'aws-amplify';
 
 const Navigation: FunctionComponent = () => {
   const [isAuthenticated, setIsAuthenticated] = useContext(AuthContext);
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await Auth.signOut();
     setIsAuthenticated(false);
   };
 
