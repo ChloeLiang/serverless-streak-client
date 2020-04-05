@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { Form, Input, Button } from 'antd';
+import { Auth } from 'aws-amplify';
 import ERROR from '../constants/error';
 
 const Login: FunctionComponent = () => {
@@ -7,8 +8,14 @@ const Login: FunctionComponent = () => {
    * TODO Currently it's not able to define the type of values.
    * @param values { username: string; password: string; }
    */
-  const onFinish = (values: any) => {
-    console.log('Success', values);
+  const onFinish = async (values: any) => {
+    const { username, password } = values;
+    try {
+      await Auth.signIn(username, password);
+      // alert('Logged in');
+    } catch (e) {
+      // alert(e.message);
+    }
   };
 
   return (

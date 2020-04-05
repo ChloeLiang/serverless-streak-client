@@ -6,8 +6,11 @@ import {
   screen,
   waitForElementToBeRemoved,
 } from '@testing-library/react';
+import awsAmplify from 'aws-amplify';
 import Login from '../../components/Login';
 import ERROR from '../../constants/error';
+
+jest.mock('aws-amplify');
 
 afterEach(cleanup);
 
@@ -70,12 +73,18 @@ it('should validate password', async () => {
 });
 
 // TODO Complete form submit after implementing onFinish method.
-it('should submit form if no error', () => {
+it('should submit form if no error', async () => {
+  awsAmplify.Auth.signIn.mockImplementationOnce(() => {
+    console.log('mocked sign in');
+    Promise.resolve('success');
+  });
   render(<Login />);
   const usernameInput = screen.getByLabelText(/Username/i);
   const passwordInput = screen.getByLabelText(/Password/i);
   const button = screen.getByRole('button');
-  fireEvent.change(usernameInput, { target: { value: 'example@gmail.com' } });
-  fireEvent.change(passwordInput, { target: { value: 'Password' } });
+  const username = 'admin@example.com';
+  const password = 'Passw0rd!';
+  fireEvent.change(usernameInput, { target: { value: username } });
+  fireEvent.change(passwordInput, { target: { value: password } });
   fireEvent.click(button);
 });
