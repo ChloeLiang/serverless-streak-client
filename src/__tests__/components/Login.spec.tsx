@@ -75,7 +75,6 @@ it('should validate password', async () => {
 // TODO Complete form submit after implementing onFinish method.
 it('should submit form if no error', async () => {
   awsAmplify.Auth.signIn.mockImplementationOnce(() => {
-    console.log('mocked sign in');
     Promise.resolve('success');
   });
   render(<Login />);

@@ -1,18 +1,21 @@
-import React, { FunctionComponent } from 'react';
+import React, { useContext, FunctionComponent } from 'react';
 import { Form, Input, Button } from 'antd';
 import { Auth } from 'aws-amplify';
 import ERROR from '../constants/error';
+import AuthContext from '../contexts/AuthContext';
 
 const Login: FunctionComponent = () => {
+  const [, setIsAuthenticated] = useContext(AuthContext);
+
   /**
    * TODO Currently it's not able to define the type of values.
    * @param values { username: string; password: string; }
    */
   const onFinish = async (values: any) => {
     const { username, password } = values;
+    setIsAuthenticated(true);
     try {
       await Auth.signIn(username, password);
-      // alert('Logged in');
     } catch (e) {
       // alert(e.message);
     }
