@@ -6,6 +6,7 @@ import ERROR from '../constants/error';
 import AuthContext from '../contexts/AuthContext';
 
 const Login: FunctionComponent<RouteComponentProps> = (props) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [loginError, setLoginError] = useState('');
   const [, setIsAuthenticated] = useContext(AuthContext);
 
@@ -14,6 +15,7 @@ const Login: FunctionComponent<RouteComponentProps> = (props) => {
    * @param values { username: string; password: string; }
    */
   const onFinish = async (values: any) => {
+    setIsLoading(true);
     const { username, password } = values;
     try {
       await Auth.signIn(username, password);
@@ -22,6 +24,7 @@ const Login: FunctionComponent<RouteComponentProps> = (props) => {
       props.history.push('/');
     } catch (e) {
       setLoginError(e.message);
+      setIsLoading(false);
     }
   };
 
@@ -76,6 +79,7 @@ const Login: FunctionComponent<RouteComponentProps> = (props) => {
             block
             htmlType="submit"
             data-testid="login-submit"
+            loading={isLoading}
           >
             Submit
           </Button>
