@@ -6,9 +6,9 @@ import {
   screen,
   waitForElementToBeRemoved,
 } from '@testing-library/react';
-import awsAmplify from 'aws-amplify';
 import Login from '../../components/Login';
 import ERROR from '../../constants/error';
+import routerProps from '../../__mocks__/router-props';
 
 jest.mock('aws-amplify');
 
@@ -28,12 +28,12 @@ it('should render basic component', () => {
       dispatchEvent: jest.fn(),
     })),
   });
-  const { container } = render(<Login />);
+  const { container } = render(<Login {...routerProps} />);
   expect(container.firstChild).toMatchSnapshot();
 });
 
 it('should validate username', async () => {
-  render(<Login />);
+  render(<Login {...routerProps} />);
   const usernameInput = screen.getByLabelText(/Username/i);
   const button = screen.getByRole('button');
 
@@ -53,7 +53,7 @@ it('should validate username', async () => {
 });
 
 it('should validate password', async () => {
-  render(<Login />);
+  render(<Login {...routerProps} />);
   const passwordInput = screen.getByLabelText(/Password/i);
   const button = screen.getByRole('button');
 
@@ -70,20 +70,4 @@ it('should validate password', async () => {
     screen.queryByText(ERROR.INVALID_PASSWORD)
   );
   expect(result).toBeTruthy();
-});
-
-// TODO Complete form submit after implementing onFinish method.
-it('should submit form if no error', async () => {
-  awsAmplify.Auth.signIn.mockImplementationOnce(() => {
-    Promise.resolve('success');
-  });
-  render(<Login />);
-  const usernameInput = screen.getByLabelText(/Username/i);
-  const passwordInput = screen.getByLabelText(/Password/i);
-  const button = screen.getByRole('button');
-  const username = 'admin@example.com';
-  const password = 'Passw0rd!';
-  fireEvent.change(usernameInput, { target: { value: username } });
-  fireEvent.change(passwordInput, { target: { value: password } });
-  fireEvent.click(button);
 });

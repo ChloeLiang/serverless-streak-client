@@ -8,6 +8,7 @@ exports[`should render basic component 1`] = `
     class="ant-form ant-form-horizontal"
     id="login"
   >
+    
     <div
       class="ant-row ant-form-item"
     >
@@ -121,6 +122,7 @@ exports[`should render basic component 1`] = `
           >
             <button
               class="ant-btn ant-btn-primary ant-btn-block"
+              data-testid="login-submit"
               type="submit"
             >
               <span>

@@ -1,10 +1,12 @@
-import React, { useContext, FunctionComponent } from 'react';
-import { Form, Input, Button } from 'antd';
+import React, { useState, useContext, FunctionComponent } from 'react';
+import { RouteComponentProps } from 'react-router-dom';
+import { Row, Col, Form, Input, Button, Alert } from 'antd';
 import { Auth } from 'aws-amplify';
 import ERROR from '../constants/error';
 import AuthContext from '../contexts/AuthContext';
 
-const Login: FunctionComponent = () => {
+const Login: FunctionComponent<RouteComponentProps> = (props) => {
+  const [loginError, setLoginError] = useState('');
   const [, setIsAuthenticated] = useContext(AuthContext);
 
   /**
@@ -13,11 +15,13 @@ const Login: FunctionComponent = () => {
    */
   const onFinish = async (values: any) => {
     const { username, password } = values;
-    setIsAuthenticated(true);
     try {
       await Auth.signIn(username, password);
+      setLoginError('');
+      setIsAuthenticated(true);
+      props.history.push('/');
     } catch (e) {
-      // alert(e.message);
+      setLoginError(e.message);
     }
   };
 
@@ -29,6 +33,14 @@ const Login: FunctionComponent = () => {
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
       >
+        {loginError && (
+          <Row justify="end" gutter={[0, 16]}>
+            <Col>
+              <Alert message={loginError} type="error" showIcon />
+            </Col>
+          </Row>
+        )}
+
         <Form.Item
           label="Username"
           name="username"
@@ -59,7 +71,12 @@ const Login: FunctionComponent = () => {
         <Form.Item
           wrapperCol={{ sm: { span: 24 }, md: { offset: 8, span: 16 } }}
         >
-          <Button type="primary" block htmlType="submit">
+          <Button
+            type="primary"
+            block
+            htmlType="submit"
+            data-testid="login-submit"
+          >
             Submit
           </Button>
         </Form.Item>
