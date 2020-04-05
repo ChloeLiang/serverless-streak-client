@@ -157,3 +157,22 @@ it('should log user out', async () => {
   expect(screen.queryByText(/Sign up/i)).toBeTruthy();
   expect(screen.queryByText(/Login/i)).toBeTruthy();
 });
+
+it('should redirect user to login page after logout', async () => {
+  awsAmplify.Auth.currentSession.mockImplementationOnce(() => {
+    return Promise.resolve('success');
+  });
+  awsAmplify.Auth.signOut.mockImplementationOnce(() => {
+    return Promise.resolve('success');
+  });
+  render(
+    <MemoryRouter>
+      <App />
+    </MemoryRouter>
+  );
+  await waitForElementToBeRemoved(() => screen.queryByText(/Loading/i));
+  fireEvent.click(screen.getByText(/Logout/i));
+  await waitForElementToBeRemoved(() => screen.queryByText(/Logout/i));
+  expect(screen.queryByText(/Username/i)).toBeTruthy();
+  expect(screen.queryByText(/Password/i)).toBeTruthy();
+});
