@@ -137,7 +137,9 @@ const SignUp: FunctionComponent<RouteComponentProps> = (props) => {
           rules={[
             { required: true, message: ERROR.REQUIRED_PASSWORD },
             {
-              pattern: new RegExp('^\\S{8,20}$'),
+              pattern: new RegExp(
+                '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]\\S{8,20}$'
+              ),
               message: ERROR.INVALID_PASSWORD,
             },
           ]}
