@@ -6,23 +6,58 @@ import ERROR from '../constants/error';
 import AuthContext from '../contexts/AuthContext';
 
 const SignUp: FunctionComponent<RouteComponentProps> = (props) => {
-  const [newUser, setNewUser] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [signUpError, setSignUpError] = useState('');
   const [, setIsAuthenticated] = useContext(AuthContext);
 
   /**
    * TODO Currently it's not able to define the type of values.
-   * @param values { username: string; password: string; }
+   * @param values { username: string; password: string; confirmPassword: string; }
    */
   const onFinishSignUp = async (values: any) => {
+    const { username, password } = values;
     setIsLoading(true);
-    setNewUser('test');
-    setIsLoading(false);
+    try {
+      await Auth.signUp({
+        username,
+        password,
+      });
+      setIsLoading(false);
+      setSignUpError('');
+      setUsername(username);
+      setPassword(password);
+    } catch (e) {
+      if (e.code === 'UsernameExistsException') {
+        setUsername(username);
+        setPassword(password);
+        await Auth.resendSignUp(username);
+        setIsLoading(false);
+      } else {
+        setIsLoading(false);
+        setSignUpError(e.message);
+      }
+    }
   };
 
-  const onFinishConfirmation = () => {
+  /**
+   * TODO Currently it's not able to define the type of values.
+   * @param values { confirmationCode: string; }
+   */
+  const onFinishConfirmation = async (values: any) => {
+    const { confirmationCode } = values;
     setIsLoading(true);
+    try {
+      await Auth.confirmSignUp(username, confirmationCode);
+      setSignUpError('');
+      await Auth.signIn(username, password);
+      setIsAuthenticated(true);
+      props.history.push('/');
+    } catch (e) {
+      setSignUpError(e.message);
+      setIsLoading(false);
+    }
   };
 
   const renderConfirmationForm = () => {
@@ -30,6 +65,13 @@ const SignUp: FunctionComponent<RouteComponentProps> = (props) => {
       <Row justify="center">
         <Col>
           <Form name="confirmation" onFinish={onFinishConfirmation}>
+            {signUpError && (
+              <Row justify="end" gutter={[0, 16]}>
+                <Col>
+                  <Alert message={signUpError} type="error" showIcon />
+                </Col>
+              </Row>
+            )}
             <Form.Item
               label="Confirmation Code"
               name="confirmationCode"
@@ -69,7 +111,7 @@ const SignUp: FunctionComponent<RouteComponentProps> = (props) => {
         wrapperCol={{ span: 16 }}
       >
         {signUpError && (
-          <Row justify="end">
+          <Row justify="end" gutter={[0, 16]}>
             <Col>
               <Alert message={signUpError} type="error" showIcon />
             </Col>
@@ -142,7 +184,7 @@ const SignUp: FunctionComponent<RouteComponentProps> = (props) => {
 
   return (
     <div className="SignUp">
-      {newUser ? renderConfirmationForm() : renderSignUpForm()}
+      {username ? renderConfirmationForm() : renderSignUpForm()}
     </div>
   );
 };
