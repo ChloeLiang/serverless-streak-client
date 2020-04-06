@@ -54,20 +54,9 @@ it('should validate username', async () => {
 
 it('should validate password', async () => {
   render(<Login {...routerProps} />);
-  const passwordInput = screen.getByLabelText(/Password/i);
   const button = screen.getByRole('button');
 
   fireEvent.click(button);
   const requiredError = await screen.findByText(ERROR.REQUIRED_PASSWORD);
   expect(requiredError).toBeTruthy();
-
-  fireEvent.change(passwordInput, { target: { value: 'test' } });
-  const invalidError = await screen.findByText(ERROR.INVALID_PASSWORD);
-  expect(invalidError).toBeTruthy();
-
-  fireEvent.change(passwordInput, { target: { value: 'Passw0rd' } });
-  const result = await waitForElementToBeRemoved(() =>
-    screen.queryByText(ERROR.INVALID_PASSWORD)
-  );
-  expect(result).toBeTruthy();
 });

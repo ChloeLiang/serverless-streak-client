@@ -59,13 +59,7 @@ const Login: FunctionComponent<RouteComponentProps> = (props) => {
         <Form.Item
           label="Password"
           name="password"
-          rules={[
-            { required: true, message: ERROR.REQUIRED_PASSWORD },
-            {
-              pattern: new RegExp('^\\S{8,20}$'),
-              message: ERROR.INVALID_PASSWORD,
-            },
-          ]}
+          rules={[{ required: true, message: ERROR.REQUIRED_PASSWORD }]}
           hasFeedback
         >
           <Input.Password />
