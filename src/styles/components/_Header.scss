@@ -5,8 +5,7 @@
     height: 100%;
 
     @include respond(xl) {
-      max-width: $max-width;
-      margin: 0 auto;
+      @include container;
     }
   }
 

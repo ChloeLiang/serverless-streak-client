@@ -1,4 +1,5 @@
 enum ERROR {
+  // Sign up / Login
   REQUIRED_USERNAME = 'Username is required.',
   REQUIRED_PASSWORD = 'Password is required.',
   INVALID_USERNAME = 'Username must be a valid email.',
@@ -6,6 +7,9 @@ enum ERROR {
   INCORRECT_LOGIN = 'Incorrect username or password.',
   CONFIRM_PASSWORD = 'Passwords do not match.',
   CONFIRMATION_CODE = 'Confirmation code is required.',
+
+  // New Goal
+  REQUIRED_TITLE = 'Title is required.',
 }
 
 export default ERROR;

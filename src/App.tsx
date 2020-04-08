@@ -8,6 +8,7 @@ import Login from './components/Login';
 import Header from './components/Header';
 import AuthContext from './contexts/AuthContext';
 import SignUp from './components/SignUp';
+import NewGoal from './components/NewGoal';
 
 const App: FunctionComponent = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -40,6 +41,7 @@ const App: FunctionComponent = () => {
             <Route path="/" exact component={Home} />
             <Route path="/signup" component={SignUp} />
             <Route path="/login" component={Login} />
+            <Route path="/goals/new" component={NewGoal} />
             <Route component={NotFound} />
           </Switch>
         </Content>

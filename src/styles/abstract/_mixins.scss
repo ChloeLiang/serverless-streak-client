@@ -33,3 +33,8 @@
   max-width: 40rem;
   margin: 0 auto;
 }
+
+@mixin container {
+  max-width: $max-width;
+  margin: 0 auto;
+}
