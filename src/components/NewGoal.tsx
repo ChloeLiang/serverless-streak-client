@@ -1,8 +1,12 @@
 import React, { useState, FunctionComponent } from 'react';
+import { RouteComponentProps } from 'react-router-dom';
 import { Form, Input, InputNumber, Select, DatePicker, Button } from 'antd';
+import { createGoal } from '../services/goal';
 import ERROR from '../constants/error';
+import { goalType } from '../constants/enum';
+import { transformNewGoal } from '../utils/transformNewGoal';
 
-const NewGoal: FunctionComponent = () => {
+const NewGoal: FunctionComponent<RouteComponentProps> = (props) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const { Option } = Select;
@@ -24,9 +28,21 @@ const NewGoal: FunctionComponent = () => {
     },
   };
 
-  const onFinish = (values: any) => {
-    console.log(values);
+  /**
+   * TODO Define values type.
+   * @param values { title, description, period, type, amount }
+   */
+  const onFinish = async (values: any) => {
     setIsLoading(true);
+    try {
+      await createGoal({
+        content: transformNewGoal(values),
+      });
+      props.history.push('/');
+    } catch (e) {
+      // TODO Handle error
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -47,8 +63,8 @@ const NewGoal: FunctionComponent = () => {
         </Form.Item>
         <Form.Item name="type" label="Type">
           <Select style={{ width: 120 }}>
-            <Option value="number">Number</Option>
-            <Option value="checklist">Checklist</Option>
+            <Option value={goalType.NUMBER}>Number</Option>
+            <Option value={goalType.CHECKLIST}>Checklist</Option>
           </Select>
         </Form.Item>
         <Form.Item
@@ -58,18 +74,13 @@ const NewGoal: FunctionComponent = () => {
           }
         >
           {({ getFieldValue }) => {
-            if (getFieldValue('type') === 'number') {
+            if (getFieldValue('type') === goalType.NUMBER) {
               return (
-                <>
-                  <Form.Item name="amount" label="Amount">
-                    <InputNumber />
-                  </Form.Item>
-                  <Form.Item name="unit" label="Unit">
-                    <Input style={{ width: 90 }} />
-                  </Form.Item>
-                </>
+                <Form.Item name="amount" label="Amount">
+                  <InputNumber />
+                </Form.Item>
               );
-            } else if (getFieldValue('type') === 'checklist') {
+            } else if (getFieldValue('type') === goalType.CHECKLIST) {
               return (
                 <>
                   <Form.Item {...noLabelLayout} name="newCheckbox">
@@ -84,7 +95,7 @@ const NewGoal: FunctionComponent = () => {
           }}
         </Form.Item>
         <Form.Item {...noLabelLayout}>
-          <Button type="primary" block>
+          <Button block type="primary" htmlType="submit" loading={isLoading}>
             Create
           </Button>
         </Form.Item>

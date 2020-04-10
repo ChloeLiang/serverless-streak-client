@@ -4,6 +4,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import Amplify from 'aws-amplify';
 import config from './config';
 import App from './App';
+import AWS from './constants/aws';
 import './styles/main.scss';
 
 Amplify.configure({
@@ -22,7 +23,7 @@ Amplify.configure({
   API: {
     endpoints: [
       {
-        name: 'goals',
+        name: AWS.API_NAME,
         endpoint: config.apiGateway.URL,
         region: config.apiGateway.REGION,
       },
