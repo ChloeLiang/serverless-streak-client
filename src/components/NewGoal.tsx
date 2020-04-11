@@ -69,16 +69,43 @@ const NewGoal: FunctionComponent<RouteComponentProps> = (props) => {
         isChecked: false,
       })
     );
-    form.resetFields([addItemInputName]);
+    resetAddItemInput();
+  };
+
+  const onPasteChecklistItem = (e: React.ClipboardEvent<HTMLInputElement>) => {
+    const pasteData = e.clipboardData && e.clipboardData.getData('text');
+    if (pasteData) {
+      const splitData = pasteData.split('\n');
+      resetAddItemInput();
+      setChecklist(
+        checklist.concat(
+          splitData.map((item) => ({
+            id: uuid(),
+            label: item,
+            isChecked: false,
+          }))
+        )
+      );
+    }
   };
 
   const onRemoveChecklistItem = (id: string) => {
     setChecklist(checklist.filter((item) => item.id !== id));
   };
 
+  const resetAddItemInput = () => {
+    form.resetFields(['checklistItem']);
+  };
+
   return (
     <div className="NewGoal">
-      <Form {...formLayout} form={form} name="newGoal" onFinish={onFinish}>
+      <Form
+        {...formLayout}
+        form={form}
+        name="newGoal"
+        onFinish={onFinish}
+        autoComplete="off"
+      >
         <Form.Item
           name="title"
           label="Title"
@@ -138,7 +165,10 @@ const NewGoal: FunctionComponent<RouteComponentProps> = (props) => {
                     name="checklistItem"
                     className="NewGoal__add-item-input"
                   >
-                    <Input placeholder="Add an item" />
+                    <Input
+                      placeholder="Add an item"
+                      onPaste={onPasteChecklistItem}
+                    />
                   </Form.Item>
                   <Form.Item {...noLabelLayout}>
                     <Button htmlType="button" onClick={onAddChecklistItem}>
