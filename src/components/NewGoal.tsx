@@ -4,7 +4,7 @@ import { Form, Input, InputNumber, Select, DatePicker, Button } from 'antd';
 import { createGoal } from '../services/goal';
 import ERROR from '../constants/error';
 import { goalType } from '../constants/enum';
-import { transformNewGoal } from '../utils/transformNewGoal';
+import transformNewGoal from '../utils/transformNewGoal';
 
 const NewGoal: FunctionComponent<RouteComponentProps> = (props) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -34,10 +34,10 @@ const NewGoal: FunctionComponent<RouteComponentProps> = (props) => {
    */
   const onFinish = async (values: any) => {
     setIsLoading(true);
+    console.log(values);
+    return;
     try {
-      await createGoal({
-        content: transformNewGoal(values),
-      });
+      await createGoal(transformNewGoal(values));
       props.history.push('/');
     } catch (e) {
       // TODO Handle error

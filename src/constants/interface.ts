@@ -3,11 +3,11 @@ import { goalType } from './enum';
 
 export interface NewGoalForm {
   title: string;
-  description?: string;
-  period?: Moment[];
-  type?: goalType;
-  amount?: number;
-  checklist?: string[];
+  description: string | undefined;
+  period: Moment[] | undefined;
+  type: goalType | undefined;
+  amount?: number | undefined;
+  checklist?: string[] | undefined;
 }
 
 export interface Goal {

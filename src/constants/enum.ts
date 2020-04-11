@@ -1,4 +1,4 @@
 export enum goalType {
-  NUMBER,
-  CHECKLIST,
+  NUMBER = 1,
+  CHECKLIST = 2,
 }

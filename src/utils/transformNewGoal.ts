@@ -22,4 +22,4 @@ const transformNewGoal = (values: NewGoalForm) => {
   return newGoal;
 };
 
-export { transformNewGoal };
+export default transformNewGoal;
