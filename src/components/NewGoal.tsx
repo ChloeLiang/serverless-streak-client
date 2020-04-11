@@ -1,6 +1,8 @@
 import React, { useState, FunctionComponent } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import {
+  Row,
+  Col,
   Form,
   Input,
   InputNumber,
@@ -9,6 +11,7 @@ import {
   Checkbox,
   Button,
 } from 'antd';
+import { CloseOutlined } from '@ant-design/icons';
 import { v4 as uuid } from 'uuid';
 import { createGoal } from '../services/goal';
 import ERROR from '../constants/error';
@@ -69,6 +72,10 @@ const NewGoal: FunctionComponent<RouteComponentProps> = (props) => {
     form.resetFields([addItemInputName]);
   };
 
+  const onRemoveChecklistItem = (id: string) => {
+    setChecklist(checklist.filter((item) => item.id !== id));
+  };
+
   return (
     <div className="NewGoal">
       <Form {...formLayout} form={form} name="newGoal" onFinish={onFinish}>
@@ -109,18 +116,21 @@ const NewGoal: FunctionComponent<RouteComponentProps> = (props) => {
                 <>
                   {checklist.length > 0 && (
                     <Form.Item {...noLabelLayout} name="checklist">
-                      <Checkbox.Group>
-                        {checklist.map((item) => (
-                          <Checkbox
-                            className="NewGoal__checkbox"
-                            key={item.id}
-                            value={item.id}
-                            checked={item.isChecked}
-                          >
-                            {item.label}
-                          </Checkbox>
-                        ))}
-                      </Checkbox.Group>
+                      {checklist.map((item) => (
+                        <Row key={item.id}>
+                          <Col span={23}>
+                            <Checkbox value={item.id} checked={item.isChecked}>
+                              {item.label}
+                            </Checkbox>
+                          </Col>
+                          <Col span={1}>
+                            <CloseOutlined
+                              className="NewGoal__icon"
+                              onClick={() => onRemoveChecklistItem(item.id)}
+                            />
+                          </Col>
+                        </Row>
+                      ))}
                     </Form.Item>
                   )}
                   <Form.Item

@@ -4,12 +4,13 @@
     @include container;
   }
 
-  &__checkbox + &__checkbox {
-    margin-left: 0;
-    display: block;
-  }
-
   &__add-item-input {
     margin-bottom: 0.6rem;
+  }
+
+  &__icon {
+    &:hover {
+      color: $color-danger;
+    }
   }
 }
