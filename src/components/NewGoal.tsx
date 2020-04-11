@@ -34,8 +34,6 @@ const NewGoal: FunctionComponent<RouteComponentProps> = (props) => {
    */
   const onFinish = async (values: any) => {
     setIsLoading(true);
-    console.log(values);
-    return;
     try {
       await createGoal(transformNewGoal(values));
       props.history.push('/');
@@ -95,7 +93,13 @@ const NewGoal: FunctionComponent<RouteComponentProps> = (props) => {
           }}
         </Form.Item>
         <Form.Item {...noLabelLayout}>
-          <Button block type="primary" htmlType="submit" loading={isLoading}>
+          <Button
+            block
+            type="primary"
+            htmlType="submit"
+            loading={isLoading}
+            data-testid="createGoal-submit"
+          >
             Create
           </Button>
         </Form.Item>
