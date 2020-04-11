@@ -1,13 +1,26 @@
 import React, { useState, FunctionComponent } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { Form, Input, InputNumber, Select, DatePicker, Button } from 'antd';
+import {
+  Form,
+  Input,
+  InputNumber,
+  Select,
+  DatePicker,
+  Checkbox,
+  Button,
+} from 'antd';
+import { v4 as uuid } from 'uuid';
 import { createGoal } from '../services/goal';
 import ERROR from '../constants/error';
 import { goalType } from '../constants/enum';
+import { Checklist } from '../constants/interface';
 import transformNewGoal from '../utils/transformNewGoal';
 
 const NewGoal: FunctionComponent<RouteComponentProps> = (props) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [checklist, setChecklist] = useState<Checklist[]>([]);
+
+  const [form] = Form.useForm();
 
   const { Option } = Select;
   const { RangePicker } = DatePicker;
@@ -35,7 +48,7 @@ const NewGoal: FunctionComponent<RouteComponentProps> = (props) => {
   const onFinish = async (values: any) => {
     setIsLoading(true);
     try {
-      await createGoal(transformNewGoal(values));
+      await createGoal(transformNewGoal({ ...values, checklist }));
       props.history.push('/');
     } catch (e) {
       // TODO Handle error
@@ -43,9 +56,22 @@ const NewGoal: FunctionComponent<RouteComponentProps> = (props) => {
     }
   };
 
+  const onAddChecklistItem = () => {
+    const addItemInputName = 'checklistItem';
+    const itemValue = form.getFieldValue(addItemInputName);
+    setChecklist(
+      checklist.concat({
+        id: uuid(),
+        label: itemValue,
+        isChecked: false,
+      })
+    );
+    form.resetFields([addItemInputName]);
+  };
+
   return (
     <div className="NewGoal">
-      <Form {...formLayout} name="newGoal" onFinish={onFinish}>
+      <Form {...formLayout} form={form} name="newGoal" onFinish={onFinish}>
         <Form.Item
           name="title"
           label="Title"
@@ -81,11 +107,33 @@ const NewGoal: FunctionComponent<RouteComponentProps> = (props) => {
             } else if (getFieldValue('type') === goalType.CHECKLIST) {
               return (
                 <>
-                  <Form.Item {...noLabelLayout} name="newCheckbox">
+                  {checklist.length > 0 && (
+                    <Form.Item {...noLabelLayout} name="checklist">
+                      <Checkbox.Group>
+                        {checklist.map((item) => (
+                          <Checkbox
+                            className="NewGoal__checkbox"
+                            key={item.id}
+                            value={item.id}
+                            checked={item.isChecked}
+                          >
+                            {item.label}
+                          </Checkbox>
+                        ))}
+                      </Checkbox.Group>
+                    </Form.Item>
+                  )}
+                  <Form.Item
+                    {...noLabelLayout}
+                    name="checklistItem"
+                    className="NewGoal__add-item-input"
+                  >
                     <Input placeholder="Add an item" />
                   </Form.Item>
                   <Form.Item {...noLabelLayout}>
-                    <Button>Add</Button>
+                    <Button htmlType="button" onClick={onAddChecklistItem}>
+                      Add Item
+                    </Button>
                   </Form.Item>
                 </>
               );

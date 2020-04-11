@@ -8,6 +8,7 @@ it('should return title if only title is defined', () => {
     description: undefined,
     period: undefined,
     type: undefined,
+    checklist: [],
   };
   expect(transformNewGoal(values)).toStrictEqual({
     title: 'title',
@@ -20,6 +21,7 @@ it('should return description', () => {
     description: 'description',
     period: undefined,
     type: undefined,
+    checklist: [],
   };
   expect(transformNewGoal(values)).toStrictEqual({
     title: 'title',
@@ -33,6 +35,7 @@ it('should return startDate and endDate', () => {
     description: undefined,
     period: [moment.utc('2020-04-11'), moment.utc('2020-05-11')],
     type: undefined,
+    checklist: [],
   };
   expect(transformNewGoal(values)).toStrictEqual({
     title: 'title',
@@ -47,6 +50,7 @@ it('should return type', () => {
     description: undefined,
     period: undefined,
     type: goalType.NUMBER,
+    checklist: [],
   };
   expect(transformNewGoal(values)).toStrictEqual({
     title: 'title',
@@ -67,10 +71,33 @@ it('should return amount', () => {
     period: undefined,
     type: goalType.NUMBER,
     amount: 100,
+    checklist: [],
   };
   expect(transformNewGoal(values)).toStrictEqual({
     title: 'title',
     type: goalType.NUMBER,
     amount: 100,
+  });
+});
+
+it('should return checklist', () => {
+  const checklist = [
+    {
+      id: 'uuid',
+      label: 'label',
+      isChecked: false,
+    },
+  ];
+  const values = {
+    checklist,
+    title: 'title',
+    description: undefined,
+    period: undefined,
+    type: goalType.CHECKLIST,
+  };
+  expect(transformNewGoal(values)).toStrictEqual({
+    checklist,
+    title: 'title',
+    type: goalType.CHECKLIST,
   });
 });

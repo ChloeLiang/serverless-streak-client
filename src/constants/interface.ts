@@ -1,13 +1,19 @@
 import { Moment } from 'moment';
 import { goalType } from './enum';
 
+export interface Checklist {
+  id: string;
+  label: string;
+  isChecked: boolean;
+}
+
 export interface NewGoalForm {
   title: string;
   description: string | undefined;
   period: Moment[] | undefined;
   type: goalType | undefined;
+  checklist: Checklist[];
   amount?: number | undefined;
-  checklist?: string[] | undefined;
 }
 
 export interface Goal {
@@ -17,5 +23,5 @@ export interface Goal {
   startDate?: string;
   endDate?: string;
   amount?: number;
-  checklist?: string[];
+  checklist?: Checklist[];
 }

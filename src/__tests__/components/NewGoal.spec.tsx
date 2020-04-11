@@ -1,7 +1,8 @@
 import React from 'react';
-import { render, cleanup } from '@testing-library/react';
+import { render, cleanup, screen, fireEvent } from '@testing-library/react';
 import NewGoal from '../../components/NewGoal';
 import routerProps from '../../__mocks__/router-props';
+import { goalType } from '../../constants/enum';
 
 afterEach(cleanup);
 afterEach(jest.clearAllMocks);

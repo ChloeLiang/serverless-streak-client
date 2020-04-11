@@ -1,7 +1,7 @@
 import { Goal, NewGoalForm } from '../constants/interface';
 
 const transformNewGoal = (values: NewGoalForm) => {
-  const { title, description, period, type, amount } = values;
+  const { title, description, period, type, amount, checklist } = values;
   const newGoal: Goal = {
     title,
   };
@@ -17,6 +17,9 @@ const transformNewGoal = (values: NewGoalForm) => {
   }
   if (amount) {
     newGoal.amount = amount;
+  }
+  if (checklist.length > 0) {
+    newGoal.checklist = checklist;
   }
 
   return newGoal;
