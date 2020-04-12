@@ -14,4 +14,8 @@ function getGoals() {
   return API.get(AWS.API_NAME, '/goals', null);
 }
 
-export { createGoal, getGoals };
+function getGoal(id: string) {
+  return API.get(AWS.API_NAME, `/goals/${id}`, null);
+}
+
+export { createGoal, getGoals, getGoal };
