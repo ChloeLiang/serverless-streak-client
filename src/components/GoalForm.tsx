@@ -10,14 +10,15 @@ import {
   Select,
   DatePicker,
   Checkbox,
+  Modal,
   Button,
 } from 'antd';
-import { CloseOutlined } from '@ant-design/icons';
+import { CloseOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import { v4 as uuid } from 'uuid';
 import ERROR from '../constants/error';
 import { goalType } from '../constants/enum';
 import { Checklist, GoalResponse, Goal } from '../constants/interface';
-import { getGoal } from '../services/goal';
+import { getGoal, deleteGoal } from '../services/goal';
 
 interface Props {
   type: 'create' | 'save';
@@ -141,6 +142,20 @@ const GoalForm: FunctionComponent<Props> = (props) => {
     form.resetFields(['checklistItem']);
   };
 
+  const onDeleteGoal = () => {
+    Modal.confirm({
+      title: 'Do you want to delete this goal?',
+      icon: <ExclamationCircleOutlined />,
+      content: 'You won’t be able to re-open this goal. There is no undo.',
+      async onOk() {
+        if (id) {
+          await deleteGoal(id);
+          history.push('/');
+        }
+      },
+    });
+  };
+
   return (
     <Form
       {...formLayout}
@@ -243,6 +258,17 @@ const GoalForm: FunctionComponent<Props> = (props) => {
           data-testid="goal-submit"
         >
           {props.type.toUpperCase()}
+        </Button>
+      </Form.Item>
+      <Form.Item {...noLabelLayout}>
+        <Button
+          block
+          danger
+          loading={isLoading}
+          onClick={onDeleteGoal}
+          data-testid="goal-delete"
+        >
+          DELETE
         </Button>
       </Form.Item>
     </Form>

@@ -26,4 +26,8 @@ function updateGoal(id: string, goal: Goal) {
   });
 }
 
-export { createGoal, getGoals, getGoal, updateGoal };
+function deleteGoal(id: string) {
+  return API.del(AWS.API_NAME, `/goals/${id}`, null);
+}
+
+export { createGoal, getGoals, getGoal, updateGoal, deleteGoal };
