@@ -16,3 +16,8 @@ it('should call create goal endpoint', async () => {
     },
   });
 });
+
+it('should call get goals endpoint', async () => {
+  await goalService.getGoals();
+  expect(amplify.API.get).toHaveBeenCalledTimes(1);
+});

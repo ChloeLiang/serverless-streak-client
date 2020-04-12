@@ -10,4 +10,8 @@ function createGoal(goal: Goal) {
   });
 }
 
-export { createGoal };
+function getGoals() {
+  return API.get(AWS.API_NAME, '/goals', null);
+}
+
+export { createGoal, getGoals };
