@@ -59,7 +59,8 @@ const NewGoal: FunctionComponent<RouteComponentProps> = (props) => {
     }
   };
 
-  const onAddChecklistItem = () => {
+  const onAddChecklistItem = (e: React.MouseEvent | React.KeyboardEvent) => {
+    e.preventDefault();
     const addItemInputName = 'checklistItem';
     const itemValue = form.getFieldValue(addItemInputName);
     setChecklist(
@@ -142,7 +143,7 @@ const NewGoal: FunctionComponent<RouteComponentProps> = (props) => {
               return (
                 <>
                   {checklist.length > 0 && (
-                    <Form.Item {...noLabelLayout} name="checklist">
+                    <Form.Item {...noLabelLayout}>
                       {checklist.map((item) => (
                         <Row key={item.id}>
                           <Col span={23}>
@@ -168,6 +169,8 @@ const NewGoal: FunctionComponent<RouteComponentProps> = (props) => {
                     <Input
                       placeholder="Add an item"
                       onPaste={onPasteChecklistItem}
+                      onPressEnter={onAddChecklistItem}
+                      autoFocus
                     />
                   </Form.Item>
                   <Form.Item {...noLabelLayout}>
