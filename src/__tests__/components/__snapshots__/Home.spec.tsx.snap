@@ -4,19 +4,23 @@ exports[`should render basic component 1`] = `
 <div
   class="Home"
 >
-  <h1
-    class="heading-primary"
+  <div
+    class="Home__landing"
   >
-    <span
-      class="heading-primary--main"
+    <h1
+      class="heading-primary"
     >
-      Streak
-    </span>
-    <span
-      class="heading-primary--sub"
-    >
-      A Simple Goal Tracking App
-    </span>
-  </h1>
+      <span
+        class="heading-primary--main"
+      >
+        Streak
+      </span>
+      <span
+        class="heading-primary--sub"
+      >
+        A Simple Goal Tracking App
+      </span>
+    </h1>
+  </div>
 </div>
 `;

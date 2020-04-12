@@ -1,5 +1,15 @@
 .Home {
   height: 100%;
-  padding-top: 20vh;
-  text-align: center;
+
+  &__landing {
+    padding-top: 20vh;
+    text-align: center;
+  }
+
+  &__goals-container {
+    @include container;
+    padding-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+  }
 }

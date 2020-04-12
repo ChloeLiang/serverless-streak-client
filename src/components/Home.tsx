@@ -4,13 +4,16 @@ import React, {
   useContext,
   FunctionComponent,
 } from 'react';
+import moment from 'moment';
 import AuthContext from '../contexts/AuthContext';
 import { getGoals } from '../services/goal';
+import { GoalResponse } from '../constants/interface';
+import GoalsList from './GoalsList';
 
 const Home: FunctionComponent = () => {
   const [isAuthenticated] = useContext(AuthContext);
 
-  const [goals, setGoals] = useState([]);
+  const [goals, setGoals] = useState<GoalResponse[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -30,16 +33,26 @@ const Home: FunctionComponent = () => {
     onLoad();
   }, [isAuthenticated]);
 
-  const renderGoalsList = (goals: any) => {
-    return <p>Goals</p>;
+  const renderGoalsList = (goals: GoalResponse[]) => {
+    return (
+      <div className="Home__goals-container">
+        <GoalsList title="Upcoming" goals={goals} />
+        <GoalsList title="In Progress" goals={goals} />
+        <GoalsList title="Done" goals={goals} />
+      </div>
+    );
   };
 
   const renderLander = () => {
     return (
-      <h1 className="heading-primary">
-        <span className="heading-primary--main">Streak</span>
-        <span className="heading-primary--sub">A Simple Goal Tracking App</span>
-      </h1>
+      <div className="Home__landing">
+        <h1 className="heading-primary">
+          <span className="heading-primary--main">Streak</span>
+          <span className="heading-primary--sub">
+            A Simple Goal Tracking App
+          </span>
+        </h1>
+      </div>
     );
   };
 

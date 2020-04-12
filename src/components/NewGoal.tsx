@@ -17,7 +17,6 @@ import { createGoal } from '../services/goal';
 import ERROR from '../constants/error';
 import { goalType } from '../constants/enum';
 import { Checklist } from '../constants/interface';
-import transformNewGoal from '../utils/transformNewGoal';
 
 const NewGoal: FunctionComponent<RouteComponentProps> = (props) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -49,9 +48,18 @@ const NewGoal: FunctionComponent<RouteComponentProps> = (props) => {
    * @param values { title, description, period, type, amount }
    */
   const onFinish = async (values: any) => {
+    const { title, description, period, type, amount } = values;
     setIsLoading(true);
     try {
-      await createGoal(transformNewGoal({ ...values, checklist }));
+      await createGoal({
+        title,
+        description,
+        startDate: period && period[0].format('YYYY-MM-DD Z'),
+        endDate: period && period[1].format('YYYY-MM-DD Z'),
+        type,
+        amount,
+        checklist,
+      });
       props.history.push('/');
     } catch (e) {
       // TODO Handle error

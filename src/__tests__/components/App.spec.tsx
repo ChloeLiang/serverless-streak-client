@@ -12,6 +12,9 @@ import App from '../../App';
 import ERROR from '../../constants/error';
 
 jest.mock('aws-amplify');
+jest.mock('../../components/Home.tsx', () => {
+  return () => <p>Home Page</p>;
+});
 
 afterEach(cleanup);
 afterEach(jest.clearAllMocks);
@@ -40,7 +43,7 @@ it('should render home page', async () => {
     </MemoryRouter>
   );
   await waitForElementToBeRemoved(() => screen.queryByText(/Loading/i));
-  expect(screen.queryByText(/Streak/i)).toBeTruthy();
+  expect(screen.queryByText(/Home Page/i)).toBeTruthy();
 });
 
 it('should show sign up and log in button if user is not authenticated', async () => {

@@ -25,3 +25,10 @@ export interface Goal {
   amount?: number;
   checklist?: Checklist[];
 }
+
+export interface GoalResponse {
+  goalId: string;
+  userId: string;
+  createdAt: number;
+  content: Goal;
+}
