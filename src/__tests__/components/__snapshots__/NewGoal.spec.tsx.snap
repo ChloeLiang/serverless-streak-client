@@ -258,11 +258,11 @@ exports[`should render basic component 1`] = `
           >
             <button
               class="ant-btn ant-btn-primary ant-btn-block"
-              data-testid="createGoal-submit"
+              data-testid="goal-submit"
               type="submit"
             >
               <span>
-                Create
+                CREATE
               </span>
             </button>
           </div>

@@ -18,4 +18,12 @@ function getGoal(id: string) {
   return API.get(AWS.API_NAME, `/goals/${id}`, null);
 }
 
-export { createGoal, getGoals, getGoal };
+function updateGoal(id: string, goal: Goal) {
+  return API.put(AWS.API_NAME, `/goals/${id}`, {
+    body: {
+      content: goal,
+    },
+  });
+}
+
+export { createGoal, getGoals, getGoal, updateGoal };

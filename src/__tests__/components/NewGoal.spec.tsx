@@ -1,8 +1,7 @@
 import React from 'react';
-import { render, cleanup, screen, fireEvent } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
+import { render, cleanup } from '@testing-library/react';
 import NewGoal from '../../components/NewGoal';
-import routerProps from '../../__mocks__/router-props';
-import { goalType } from '../../constants/enum';
 
 afterEach(cleanup);
 afterEach(jest.clearAllMocks);
@@ -21,6 +20,10 @@ it('should render basic component', () => {
       dispatchEvent: jest.fn(),
     })),
   });
-  const { container } = render(<NewGoal {...routerProps} />);
+  const { container } = render(
+    <MemoryRouter>
+      <NewGoal />
+    </MemoryRouter>
+  );
   expect(container.firstChild).toMatchSnapshot();
 });

@@ -4,7 +4,6 @@ import React, {
   useContext,
   FunctionComponent,
 } from 'react';
-import moment from 'moment';
 import AuthContext from '../contexts/AuthContext';
 import { getGoals } from '../services/goal';
 import { GoalResponse } from '../constants/interface';
