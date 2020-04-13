@@ -149,8 +149,13 @@ const GoalForm: FunctionComponent<Props> = (props) => {
       content: 'You won’t be able to re-open this goal. There is no undo.',
       async onOk() {
         if (id) {
-          await deleteGoal(id);
-          history.push('/');
+          try {
+            await deleteGoal(id);
+            history.push('/');
+          } catch (e) {
+            // TODO: Handle error
+            console.error(e);
+          }
         }
       },
     });
@@ -260,17 +265,19 @@ const GoalForm: FunctionComponent<Props> = (props) => {
           {props.type.toUpperCase()}
         </Button>
       </Form.Item>
-      <Form.Item {...noLabelLayout}>
-        <Button
-          block
-          danger
-          loading={isLoading}
-          onClick={onDeleteGoal}
-          data-testid="goal-delete"
-        >
-          DELETE
-        </Button>
-      </Form.Item>
+      {props.type === 'save' && (
+        <Form.Item {...noLabelLayout}>
+          <Button
+            block
+            danger
+            loading={isLoading}
+            onClick={onDeleteGoal}
+            data-testid="goal-delete"
+          >
+            DELETE
+          </Button>
+        </Form.Item>
+      )}
     </Form>
   );
 };
