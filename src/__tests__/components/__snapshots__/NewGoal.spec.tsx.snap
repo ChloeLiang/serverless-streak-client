@@ -269,31 +269,6 @@ exports[`should render basic component 1`] = `
         </div>
       </div>
     </div>
-    <div
-      class="ant-row ant-form-item"
-    >
-      <div
-        class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-16 ant-col-md-offset-4"
-      >
-        <div
-          class="ant-form-item-control-input"
-        >
-          <div
-            class="ant-form-item-control-input-content"
-          >
-            <button
-              class="ant-btn ant-btn-block ant-btn-dangerous"
-              data-testid="goal-delete"
-              type="button"
-            >
-              <span>
-                DELETE
-              </span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
   </form>
 </div>
 `;

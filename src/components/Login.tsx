@@ -5,7 +5,7 @@ import { Auth } from 'aws-amplify';
 import ERROR from '../constants/error';
 import AuthContext from '../contexts/AuthContext';
 
-const Login: FunctionComponent<RouteComponentProps> = (props) => {
+const Login: FunctionComponent<RouteComponentProps> = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [loginError, setLoginError] = useState('');
   const [, setIsAuthenticated] = useContext(AuthContext);
@@ -21,7 +21,6 @@ const Login: FunctionComponent<RouteComponentProps> = (props) => {
       await Auth.signIn(username, password);
       setLoginError('');
       setIsAuthenticated(true);
-      props.history.push('/');
     } catch (e) {
       setLoginError(e.message);
       setIsLoading(false);
