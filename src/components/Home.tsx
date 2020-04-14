@@ -56,7 +56,7 @@ const Home: FunctionComponent = () => {
   };
 
   const renderGoals = () => {
-    return <div>{!isLoading && renderGoalsList(goals)}</div>;
+    return !isLoading && renderGoalsList(goals);
   };
 
   return (

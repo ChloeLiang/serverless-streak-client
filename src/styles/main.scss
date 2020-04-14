@@ -2,15 +2,16 @@
 @import 'abstract/mixins';
 
 @import 'base/base';
+@import 'base/page';
 @import 'base/typography';
 @import 'base/utilities';
 
 @import 'components/App';
+@import 'components/GoalCard';
 @import 'components/GoalsList';
 @import 'components/Header';
 @import 'components/Home';
 @import 'components/Login';
 @import 'components/Navigation';
-@import 'components/NewGoal';
 @import 'components/NotFound';
 @import 'components/SignUp';

@@ -8,7 +8,8 @@
 
   &__goals-container {
     @include container;
-    padding-top: 2rem;
+    height: 100%;
+    padding: 2rem 0;
     display: flex;
     justify-content: space-between;
   }

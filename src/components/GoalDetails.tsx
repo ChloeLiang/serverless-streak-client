@@ -10,7 +10,11 @@ const GoalDetails: FunctionComponent = () => {
     }
   };
 
-  return <GoalForm type="save" submitCallback={onUpdateGoal} />;
+  return (
+    <div className="goal-form-container">
+      <GoalForm type="save" submitCallback={onUpdateGoal} />
+    </div>
+  );
 };
 
 export default GoalDetails;

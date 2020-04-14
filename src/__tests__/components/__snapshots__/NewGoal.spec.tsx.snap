@@ -2,7 +2,7 @@
 
 exports[`should render basic component 1`] = `
 <div
-  class="NewGoal"
+  class="goal-form-container"
 >
   <form
     autocomplete="off"

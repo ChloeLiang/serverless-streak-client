@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { Link } from 'react-router-dom';
+import GoalCard from './GoalCard';
 import { GoalResponse } from '../constants/interface';
-import { Card } from 'antd';
 
 interface Props {
   title: string;
@@ -14,9 +14,7 @@ const GoalsList: FunctionComponent<Props> = (props) => {
       <h4>{props.title}</h4>
       {props.goals.map((goal) => (
         <Link key={goal.goalId} to={`/goals/${goal.goalId}`}>
-          <Card title={goal.content.title}>
-            <p>Content</p>
-          </Card>
+          <GoalCard title={goal.content.title} />
         </Link>
       ))}
     </div>

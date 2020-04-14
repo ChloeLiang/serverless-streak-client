@@ -9,7 +9,7 @@ const NewGoal: FunctionComponent = () => {
   };
 
   return (
-    <div className="NewGoal">
+    <div className="goal-form-container">
       <GoalForm type="create" submitCallback={onCreateGoal} />
     </div>
   );
