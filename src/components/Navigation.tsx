@@ -1,6 +1,7 @@
 import React, { useContext, FunctionComponent } from 'react';
 import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
 import { Button } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
 import AuthContext from '../contexts/AuthContext';
 import { Auth } from 'aws-amplify';
 
@@ -17,11 +18,18 @@ const Navigation: FunctionComponent<RouteComponentProps> = (props) => {
     <nav className="Navigation">
       <ul>
         {isAuthenticated ? (
-          <li className="Navigation__item">
-            <Button ghost onClick={handleLogout}>
-              Logout
-            </Button>
-          </li>
+          <>
+            <li className="Navigation__item">
+              <Link to="/goals/new">
+                <Button type="primary" icon={<PlusOutlined />} />
+              </Link>
+            </li>
+            <li className="Navigation__item">
+              <Button ghost onClick={handleLogout}>
+                Logout
+              </Button>
+            </li>
+          </>
         ) : (
           <>
             <li className="Navigation__item">

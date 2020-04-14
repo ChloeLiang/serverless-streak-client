@@ -30,7 +30,7 @@ const Home: FunctionComponent = () => {
       setIsLoading(false);
     };
     onLoad();
-  }, [isAuthenticated]);
+  }, [isAuthenticated, goals]);
 
   const renderGoalsList = (goals: GoalResponse[]) => {
     return (
