@@ -1,4 +1,16 @@
 .GoalCard {
   background: white;
   padding: 0.8rem;
+  margin-top: 1rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+
+  &__title {
+    font-size: 1.6rem;
+  }
+
+  &__progress-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
 }

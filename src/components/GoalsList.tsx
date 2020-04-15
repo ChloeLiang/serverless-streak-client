@@ -14,7 +14,12 @@ const GoalsList: FunctionComponent<Props> = (props) => {
       <h4>{props.title}</h4>
       {props.goals.map((goal) => (
         <Link key={goal.goalId} to={`/goals/${goal.goalId}`}>
-          <GoalCard title={goal.content.title} />
+          <GoalCard
+            title={goal.content.title}
+            endDate={goal.content.endDate}
+            amount={goal.content.amount || 0}
+            checklist={goal.content.checklist || []}
+          />
         </Link>
       ))}
     </div>
