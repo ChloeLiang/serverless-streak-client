@@ -5,9 +5,11 @@ import React, {
   FunctionComponent,
 } from 'react';
 import AuthContext from '../contexts/AuthContext';
+import GoalsList from './GoalsList';
 import { getGoals } from '../services/goal';
 import { GoalResponse } from '../constants/interface';
-import GoalsList from './GoalsList';
+import { goalCategory } from '../constants/enum';
+import getGoalsInList from '../utils/getGoalsInList';
 
 const Home: FunctionComponent = () => {
   const [isAuthenticated] = useContext(AuthContext);
@@ -35,9 +37,18 @@ const Home: FunctionComponent = () => {
   const renderGoalsList = (goals: GoalResponse[]) => {
     return (
       <div className="Home__goals-container">
-        <GoalsList title="Upcoming" goals={goals} />
-        <GoalsList title="In Progress" goals={goals} />
-        <GoalsList title="Done" goals={goals} />
+        <GoalsList
+          title={goalCategory.UPCOMING}
+          goals={getGoalsInList(goals, goalCategory.UPCOMING)}
+        />
+        <GoalsList
+          title={goalCategory.IN_PROGRESS}
+          goals={getGoalsInList(goals, goalCategory.IN_PROGRESS)}
+        />
+        <GoalsList
+          title={goalCategory.DONE}
+          goals={getGoalsInList(goals, goalCategory.DONE)}
+        />
       </div>
     );
   };

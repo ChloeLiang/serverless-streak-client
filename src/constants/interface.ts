@@ -31,5 +31,6 @@ export interface GoalResponse {
   userId: string;
   createdAt: number;
   content: Goal;
+  progress: number;
   attachment?: string;
 }
