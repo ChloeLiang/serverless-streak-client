@@ -102,7 +102,7 @@ const GoalForm: FunctionComponent<Props> = (props) => {
       type,
       amount,
       checklist,
-      progress,
+      progress: progress || 0,
     };
     try {
       props.submitCallback(goalPayload, goal?.goalId);
