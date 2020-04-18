@@ -60,7 +60,15 @@ const GoalForm: FunctionComponent<Props> = (props) => {
           setGoal(goal);
           setChecklist(goal.content.checklist || []);
           const {
-            content: { title, description, startDate, endDate, type, amount },
+            content: {
+              title,
+              description,
+              startDate,
+              endDate,
+              type,
+              amount,
+              progress,
+            },
           } = goal;
           form.setFieldsValue({
             title,
@@ -68,6 +76,7 @@ const GoalForm: FunctionComponent<Props> = (props) => {
             period: startDate && [moment(startDate), moment(endDate)],
             type,
             amount,
+            progress,
           });
         }
       } catch (e) {
@@ -83,9 +92,9 @@ const GoalForm: FunctionComponent<Props> = (props) => {
    * @param values { title, description, period, type, amount }
    */
   const onFinish = async (values: any) => {
-    const { title, description, period, type, amount } = values;
+    const { title, description, period, type, amount, progress } = values;
     setIsLoading(true);
-    const goalPayload = {
+    const goalPayload: Goal = {
       title,
       description,
       startDate: period && period[0].format('YYYY-MM-DD'),
@@ -93,6 +102,7 @@ const GoalForm: FunctionComponent<Props> = (props) => {
       type,
       amount,
       checklist,
+      progress,
     };
     try {
       props.submitCallback(goalPayload, goal?.goalId);
@@ -168,15 +178,6 @@ const GoalForm: FunctionComponent<Props> = (props) => {
       name="newGoal"
       onFinish={onFinish}
       autoComplete="off"
-      initialValues={{
-        title: goal?.content.title,
-        description: goal?.content.description,
-        period: goal && [
-          moment(goal?.content.startDate),
-          moment(goal?.content.endDate),
-        ],
-        type: goal?.content.type,
-      }}
     >
       <Form.Item
         name="title"
@@ -206,9 +207,14 @@ const GoalForm: FunctionComponent<Props> = (props) => {
         {({ getFieldValue }) => {
           if (getFieldValue('type') === goalType.NUMBER) {
             return (
-              <Form.Item name="amount" label="Amount">
-                <InputNumber />
-              </Form.Item>
+              <>
+                <Form.Item name="amount" label="Amount">
+                  <InputNumber />
+                </Form.Item>
+                <Form.Item name="progress" label="Progress">
+                  <InputNumber />
+                </Form.Item>
+              </>
             );
           } else if (getFieldValue('type') === goalType.CHECKLIST) {
             return (

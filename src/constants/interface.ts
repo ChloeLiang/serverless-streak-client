@@ -14,6 +14,7 @@ export interface NewGoalForm {
   type: goalType | undefined;
   checklist: Checklist[];
   amount?: number | undefined;
+  progress?: number | undefined;
 }
 
 export interface Goal {
@@ -24,6 +25,7 @@ export interface Goal {
   endDate?: string;
   amount?: number;
   checklist?: Checklist[];
+  progress?: number;
 }
 
 export interface GoalResponse {
@@ -31,6 +33,5 @@ export interface GoalResponse {
   userId: string;
   createdAt: number;
   content: Goal;
-  progress: number;
   attachment?: string;
 }

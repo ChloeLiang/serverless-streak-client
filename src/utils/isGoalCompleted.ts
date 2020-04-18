@@ -2,8 +2,7 @@ import { GoalResponse } from '../constants/interface';
 
 const isGoalCompleted = (goal: GoalResponse) => {
   const {
-    progress,
-    content: { amount, checklist },
+    content: { amount, checklist, progress },
   } = goal;
   if (!progress) {
     return false;
