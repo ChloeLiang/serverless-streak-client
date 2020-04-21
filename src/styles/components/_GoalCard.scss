@@ -9,8 +9,14 @@
   }
 
   &__progress-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
+    margin-top: 0.8rem;
+
+    &-slash {
+      margin: 0 0.2rem;
+    }
+  }
+
+  &__progress-bottom {
+    line-height: 1;
   }
 }

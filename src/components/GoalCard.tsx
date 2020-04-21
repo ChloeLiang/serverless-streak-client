@@ -1,6 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Tag, Tooltip, Progress, Button } from 'antd';
-import { EditOutlined } from '@ant-design/icons';
+import { Tag, Tooltip, Progress } from 'antd';
 import { Checklist } from '../constants/interface';
 import getEndDateColor from '../utils/getEndDateColor';
 import getTargetProgress from '../utils/getTargetProgress';
@@ -18,6 +17,7 @@ const GoalCard: FunctionComponent<Props> = (props) => {
     props.startDate &&
     props.endDate &&
     (props.amount > 0 || props.checklist.length > 0);
+
   return (
     <div className="GoalCard">
       <div className="GoalCard__header">
@@ -29,19 +29,17 @@ const GoalCard: FunctionComponent<Props> = (props) => {
       {isStarted && (
         <div>
           <div className="GoalCard__progress-top">
+            <span>0</span>
+            <span className="GoalCard__progress-top-slash">/</span>
             <span>
-              0 /{' '}
               {getTargetProgress(
                 props.startDate!,
                 props.endDate!,
                 props.amount || props.checklist.length
               )}
             </span>
-            {props.amount > 0 && (
-              <Button shape="circle" icon={<EditOutlined />} />
-            )}
           </div>
-          <div>
+          <div className="GoalCard__progress-bottom">
             <Tooltip title="3 done / 3 in progress / 4 to do">
               <Progress percent={60} successPercent={30} />
             </Tooltip>
