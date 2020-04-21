@@ -14,7 +14,7 @@ exports[`should render basic component 1`] = `
     </h3>
     <span
       class="ant-tag ant-tag-has-color"
-      style="background-color: rgb(255, 85, 0);"
+      style="background-color: rgb(135, 208, 104);"
     >
       2020-04-13
     </span>
@@ -24,7 +24,9 @@ exports[`should render basic component 1`] = `
       class="GoalCard__progress-top"
     >
       <span>
-        0 / 180
+        0 /
+         
+        53
       </span>
       <button
         class="ant-btn ant-btn-circle ant-btn-icon-only"

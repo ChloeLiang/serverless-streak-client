@@ -16,6 +16,7 @@ const GoalsList: FunctionComponent<Props> = (props) => {
         <Link key={goal.goalId} to={`/goals/${goal.goalId}`}>
           <GoalCard
             title={goal.content.title}
+            startDate={goal.content.startDate}
             endDate={goal.content.endDate}
             amount={goal.content.amount || 0}
             checklist={goal.content.checklist || []}

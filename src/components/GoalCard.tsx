@@ -3,9 +3,11 @@ import { Tag, Tooltip, Progress, Button } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import { Checklist } from '../constants/interface';
 import getEndDateColor from '../utils/getEndDateColor';
+import getTargetProgress from '../utils/getTargetProgress';
 
 interface Props {
   title: string;
+  startDate: string | undefined;
   endDate: string | undefined;
   amount: number;
   checklist: Checklist[];
@@ -13,7 +15,9 @@ interface Props {
 
 const GoalCard: FunctionComponent<Props> = (props) => {
   const isStarted =
-    props.endDate && (props.amount > 0 || props.checklist.length > 0);
+    props.startDate &&
+    props.endDate &&
+    (props.amount > 0 || props.checklist.length > 0);
   return (
     <div className="GoalCard">
       <div className="GoalCard__header">
@@ -25,7 +29,14 @@ const GoalCard: FunctionComponent<Props> = (props) => {
       {isStarted && (
         <div>
           <div className="GoalCard__progress-top">
-            <span>0 / 180</span>
+            <span>
+              0 /{' '}
+              {getTargetProgress(
+                props.startDate!,
+                props.endDate!,
+                props.amount || props.checklist.length
+              )}
+            </span>
             {props.amount > 0 && (
               <Button shape="circle" icon={<EditOutlined />} />
             )}
