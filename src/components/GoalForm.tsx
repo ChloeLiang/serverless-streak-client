@@ -14,6 +14,7 @@ import {
   Button,
 } from 'antd';
 import { CloseOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import { CheckboxChangeEvent } from 'antd/lib/checkbox';
 import { v4 as uuid } from 'uuid';
 import ERROR from '../constants/error';
 import { goalType } from '../constants/enum';
@@ -101,9 +102,10 @@ const GoalForm: FunctionComponent<Props> = (props) => {
       endDate: period && period[1].format('YYYY-MM-DD'),
       type,
       amount,
-      progress: progress || 0,
+      progress: progress
+        ? progress || 0
+        : checklist.filter((item) => item.isChecked).length,
     };
-
     if (checklist.length > 0) {
       goalPayload.checklist = checklist;
     }
@@ -153,6 +155,20 @@ const GoalForm: FunctionComponent<Props> = (props) => {
 
   const resetAddItemInput = () => {
     form.resetFields(['checklistItem']);
+  };
+
+  const onChangeCheckbox = (e: CheckboxChangeEvent) => {
+    setChecklist(
+      checklist.map((item) => {
+        if (item.id === e.target.value) {
+          return {
+            ...item,
+            isChecked: !item.isChecked,
+          };
+        }
+        return item;
+      })
+    );
   };
 
   const onDeleteGoal = () => {
@@ -227,7 +243,11 @@ const GoalForm: FunctionComponent<Props> = (props) => {
                     {checklist.map((item) => (
                       <Row key={item.id}>
                         <Col span={23}>
-                          <Checkbox value={item.id} checked={item.isChecked}>
+                          <Checkbox
+                            value={item.id}
+                            checked={item.isChecked}
+                            onChange={onChangeCheckbox}
+                          >
                             {item.label}
                           </Checkbox>
                         </Col>
