@@ -101,9 +101,12 @@ const GoalForm: FunctionComponent<Props> = (props) => {
       endDate: period && period[1].format('YYYY-MM-DD'),
       type,
       amount,
-      checklist,
       progress: progress || 0,
     };
+
+    if (checklist.length > 0) {
+      goalPayload.checklist = checklist;
+    }
     try {
       props.submitCallback(goalPayload, goal?.goalId);
       history.push('/');

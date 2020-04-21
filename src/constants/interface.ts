@@ -19,13 +19,13 @@ export interface NewGoalForm {
 
 export interface Goal {
   title: string;
-  type?: goalType;
+  progress: number;
   description?: string;
   startDate?: string;
   endDate?: string;
+  type?: goalType;
   amount?: number;
   checklist?: Checklist[];
-  progress?: number;
 }
 
 export interface GoalResponse {

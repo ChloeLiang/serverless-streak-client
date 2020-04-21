@@ -15,6 +15,7 @@ it('should render basic component', () => {
       endDate="2020-04-13"
       amount={100}
       checklist={[]}
+      progress={0}
     />
   );
   expect(container.firstChild).toMatchSnapshot();

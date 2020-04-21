@@ -20,6 +20,7 @@ const GoalsList: FunctionComponent<Props> = (props) => {
             endDate={goal.content.endDate}
             amount={goal.content.amount || 0}
             checklist={goal.content.checklist || []}
+            progress={goal.content.progress}
           />
         </Link>
       ))}

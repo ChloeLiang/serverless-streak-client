@@ -10,6 +10,7 @@ interface Props {
   endDate: string | undefined;
   amount: number;
   checklist: Checklist[];
+  progress: number;
 }
 
 const GoalCard: FunctionComponent<Props> = (props) => {
@@ -29,7 +30,7 @@ const GoalCard: FunctionComponent<Props> = (props) => {
       {isStarted && (
         <div>
           <div className="GoalCard__progress-top">
-            <span>0</span>
+            <span>{props.progress}</span>
             <span className="GoalCard__progress-top-slash">/</span>
             <span>
               {getTargetProgress(
