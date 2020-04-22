@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import GoalCard from './GoalCard';
 import { GoalResponse } from '../constants/interface';
 import getTargetProgress from '../utils/getTargetProgress';
+import shouldShowProgress from '../utils/shouldShowProgress';
 
 interface Props {
   title: string;
@@ -22,10 +23,12 @@ const GoalsList: FunctionComponent<Props> = (props) => {
           checklist,
           progress,
         } = goal.content;
-        const isStarted =
-          startDate &&
-          endDate &&
-          ((amount && amount > 0) || (checklist && checklist.length > 0));
+        const isStarted = shouldShowProgress(
+          startDate,
+          endDate,
+          amount,
+          checklist
+        );
         const targetProgress = getTargetProgress(
           startDate,
           endDate,
@@ -38,7 +41,7 @@ const GoalsList: FunctionComponent<Props> = (props) => {
               endDate={endDate}
               progress={progress}
               targetProgress={targetProgress}
-              isStarted={!!isStarted}
+              isStarted={isStarted}
             />
           </Link>
         );
