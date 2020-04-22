@@ -11,11 +11,10 @@ it('should render basic component', () => {
   const { container } = render(
     <GoalCard
       title="Title"
-      startDate="2020-04-01"
       endDate="2020-04-13"
-      amount={100}
-      checklist={[]}
       progress={0}
+      targetProgress={10}
+      isStarted
     />
   );
   expect(container.firstChild).toMatchSnapshot();

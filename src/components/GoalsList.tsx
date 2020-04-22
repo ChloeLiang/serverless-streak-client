@@ -2,6 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { Link } from 'react-router-dom';
 import GoalCard from './GoalCard';
 import { GoalResponse } from '../constants/interface';
+import getTargetProgress from '../utils/getTargetProgress';
 
 interface Props {
   title: string;
@@ -12,18 +13,36 @@ const GoalsList: FunctionComponent<Props> = (props) => {
   return (
     <div className="GoalsList">
       <h4>{props.title}</h4>
-      {props.goals.map((goal) => (
-        <Link key={goal.goalId} to={`/goals/${goal.goalId}`}>
-          <GoalCard
-            title={goal.content.title}
-            startDate={goal.content.startDate}
-            endDate={goal.content.endDate}
-            amount={goal.content.amount || 0}
-            checklist={goal.content.checklist || []}
-            progress={goal.content.progress}
-          />
-        </Link>
-      ))}
+      {props.goals.map((goal) => {
+        const {
+          title,
+          startDate,
+          endDate,
+          amount,
+          checklist,
+          progress,
+        } = goal.content;
+        const isStarted =
+          startDate &&
+          endDate &&
+          ((amount && amount > 0) || (checklist && checklist.length > 0));
+        const targetProgress = getTargetProgress(
+          startDate,
+          endDate,
+          amount || (checklist && checklist.length)
+        );
+        return (
+          <Link key={goal.goalId} to={`/goals/${goal.goalId}`}>
+            <GoalCard
+              title={title}
+              endDate={endDate}
+              progress={progress}
+              targetProgress={targetProgress}
+              isStarted={!!isStarted}
+            />
+          </Link>
+        );
+      })}
     </div>
   );
 };

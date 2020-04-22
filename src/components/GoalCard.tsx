@@ -1,24 +1,16 @@
 import React, { FunctionComponent } from 'react';
 import { Tag, Tooltip, Progress } from 'antd';
-import { Checklist } from '../constants/interface';
 import getEndDateColor from '../utils/getEndDateColor';
-import getTargetProgress from '../utils/getTargetProgress';
 
 interface Props {
   title: string;
-  startDate: string | undefined;
   endDate: string | undefined;
-  amount: number;
-  checklist: Checklist[];
   progress: number;
+  targetProgress: number;
+  isStarted: boolean;
 }
 
 const GoalCard: FunctionComponent<Props> = (props) => {
-  const isStarted =
-    props.startDate &&
-    props.endDate &&
-    (props.amount > 0 || props.checklist.length > 0);
-
   return (
     <div className="GoalCard">
       <div className="GoalCard__header">
@@ -27,18 +19,12 @@ const GoalCard: FunctionComponent<Props> = (props) => {
           <Tag color={getEndDateColor(props.endDate)}>{props.endDate}</Tag>
         )}
       </div>
-      {isStarted && (
+      {props.isStarted && (
         <div>
           <div className="GoalCard__progress-top">
             <span>{props.progress}</span>
             <span className="GoalCard__progress-top-slash">/</span>
-            <span>
-              {getTargetProgress(
-                props.startDate!,
-                props.endDate!,
-                props.amount || props.checklist.length
-              )}
-            </span>
+            <span>{props.targetProgress}</span>
           </div>
           <div className="GoalCard__progress-bottom">
             <Tooltip title="3 done / 3 in progress / 4 to do">
