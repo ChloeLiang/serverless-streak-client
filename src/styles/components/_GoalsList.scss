@@ -2,4 +2,11 @@
   flex-basis: 32.5%;
   padding: 1rem;
   background: $color-light-grey;
+  display: flex;
+  flex-direction: column;
+
+  &__cards {
+    flex-grow: 1;
+    overflow-y: auto;
+  }
 }
