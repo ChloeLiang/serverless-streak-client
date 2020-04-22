@@ -12,6 +12,7 @@ import {
   Checkbox,
   Modal,
   Button,
+  Spin,
 } from 'antd';
 import { CloseOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import { CheckboxChangeEvent } from 'antd/lib/checkbox';
@@ -57,6 +58,7 @@ const GoalForm: FunctionComponent<Props> = (props) => {
     const onLoad = async () => {
       try {
         if (id) {
+          setIsLoading(true);
           const goal: GoalResponse = await getGoal(id);
           setGoal(goal);
           setChecklist(goal.content.checklist || []);
@@ -79,10 +81,12 @@ const GoalForm: FunctionComponent<Props> = (props) => {
             amount,
             progress,
           });
+          setIsLoading(false);
         }
       } catch (e) {
         // TODO: handle error
         console.error(e);
+        setIsLoading(false);
       }
     };
     onLoad();
@@ -191,123 +195,125 @@ const GoalForm: FunctionComponent<Props> = (props) => {
   };
 
   return (
-    <Form
-      {...formLayout}
-      form={form}
-      name="newGoal"
-      onFinish={onFinish}
-      autoComplete="off"
-    >
-      <Form.Item
-        name="title"
-        label="Title"
-        rules={[{ required: true, message: ERROR.REQUIRED_TITLE }]}
+    <Spin spinning={isLoading} size="large">
+      <Form
+        {...formLayout}
+        form={form}
+        name="newGoal"
+        onFinish={onFinish}
+        autoComplete="off"
       >
-        <Input />
-      </Form.Item>
-      <Form.Item name="description" label="Description">
-        <Input.TextArea />
-      </Form.Item>
-      <Form.Item name="period" label="Period">
-        <RangePicker />
-      </Form.Item>
-      <Form.Item name="type" label="Type">
-        <Select style={{ width: 120 }}>
-          <Option value={goalType.NUMBER}>Number</Option>
-          <Option value={goalType.CHECKLIST}>Checklist</Option>
-        </Select>
-      </Form.Item>
-      <Form.Item
-        noStyle
-        shouldUpdate={(prevValues, currentValues) =>
-          prevValues.type !== currentValues.type
-        }
-      >
-        {({ getFieldValue }) => {
-          if (getFieldValue('type') === goalType.NUMBER) {
-            return (
-              <>
-                <Form.Item name="amount" label="Amount">
-                  <InputNumber />
-                </Form.Item>
-                <Form.Item name="progress" label="Progress">
-                  <InputNumber />
-                </Form.Item>
-              </>
-            );
-          } else if (getFieldValue('type') === goalType.CHECKLIST) {
-            return (
-              <>
-                {checklist.length > 0 && (
-                  <Form.Item {...noLabelLayout}>
-                    {checklist.map((item) => (
-                      <Row key={item.id}>
-                        <Col span={23}>
-                          <Checkbox
-                            value={item.id}
-                            checked={item.isChecked}
-                            onChange={onChangeCheckbox}
-                          >
-                            {item.label}
-                          </Checkbox>
-                        </Col>
-                        <Col span={1}>
-                          <CloseOutlined
-                            className="NewGoal__icon"
-                            onClick={() => onRemoveChecklistItem(item.id)}
-                          />
-                        </Col>
-                      </Row>
-                    ))}
-                  </Form.Item>
-                )}
-                <Form.Item
-                  {...noLabelLayout}
-                  name="checklistItem"
-                  className="NewGoal__add-item-input"
-                >
-                  <Input
-                    placeholder="Add an item"
-                    onPaste={onPasteChecklistItem}
-                    onPressEnter={onAddChecklistItem}
-                    autoFocus
-                  />
-                </Form.Item>
-                <Form.Item {...noLabelLayout}>
-                  <Button htmlType="button" onClick={onAddChecklistItem}>
-                    Add Item
-                  </Button>
-                </Form.Item>
-              </>
-            );
-          }
-        }}
-      </Form.Item>
-      <Form.Item {...noLabelLayout}>
-        <Button
-          block
-          type="primary"
-          htmlType="submit"
-          loading={isLoading}
-          data-testid="goal-submit"
+        <Form.Item
+          name="title"
+          label="Title"
+          rules={[{ required: true, message: ERROR.REQUIRED_TITLE }]}
         >
-          {props.type.toUpperCase()}
-        </Button>
-      </Form.Item>
-      {props.type === 'save' && (
+          <Input />
+        </Form.Item>
+        <Form.Item name="description" label="Description">
+          <Input.TextArea />
+        </Form.Item>
+        <Form.Item name="period" label="Period">
+          <RangePicker />
+        </Form.Item>
+        <Form.Item name="type" label="Type">
+          <Select style={{ width: 120 }}>
+            <Option value={goalType.NUMBER}>Number</Option>
+            <Option value={goalType.CHECKLIST}>Checklist</Option>
+          </Select>
+        </Form.Item>
+        <Form.Item
+          noStyle
+          shouldUpdate={(prevValues, currentValues) =>
+            prevValues.type !== currentValues.type
+          }
+        >
+          {({ getFieldValue }) => {
+            if (getFieldValue('type') === goalType.NUMBER) {
+              return (
+                <>
+                  <Form.Item name="amount" label="Amount">
+                    <InputNumber />
+                  </Form.Item>
+                  <Form.Item name="progress" label="Progress">
+                    <InputNumber />
+                  </Form.Item>
+                </>
+              );
+            } else if (getFieldValue('type') === goalType.CHECKLIST) {
+              return (
+                <>
+                  {checklist.length > 0 && (
+                    <Form.Item {...noLabelLayout}>
+                      {checklist.map((item) => (
+                        <Row key={item.id}>
+                          <Col span={23}>
+                            <Checkbox
+                              value={item.id}
+                              checked={item.isChecked}
+                              onChange={onChangeCheckbox}
+                            >
+                              {item.label}
+                            </Checkbox>
+                          </Col>
+                          <Col span={1}>
+                            <CloseOutlined
+                              className="NewGoal__icon"
+                              onClick={() => onRemoveChecklistItem(item.id)}
+                            />
+                          </Col>
+                        </Row>
+                      ))}
+                    </Form.Item>
+                  )}
+                  <Form.Item
+                    {...noLabelLayout}
+                    name="checklistItem"
+                    className="NewGoal__add-item-input"
+                  >
+                    <Input
+                      placeholder="Add an item"
+                      onPaste={onPasteChecklistItem}
+                      onPressEnter={onAddChecklistItem}
+                      autoFocus
+                    />
+                  </Form.Item>
+                  <Form.Item {...noLabelLayout}>
+                    <Button htmlType="button" onClick={onAddChecklistItem}>
+                      Add Item
+                    </Button>
+                  </Form.Item>
+                </>
+              );
+            }
+          }}
+        </Form.Item>
         <Form.Item {...noLabelLayout}>
           <Button
             block
-            danger
+            type="primary"
+            htmlType="submit"
             loading={isLoading}
-            onClick={onDeleteGoal}
-            data-testid="goal-delete"
+            data-testid="goal-submit"
           >
-            DELETE
+            {props.type.toUpperCase()}
           </Button>
         </Form.Item>
-      )}
-    </Form>
+        {props.type === 'save' && (
+          <Form.Item {...noLabelLayout}>
+            <Button
+              block
+              danger
+              loading={isLoading}
+              onClick={onDeleteGoal}
+              data-testid="goal-delete"
+            >
+              DELETE
+            </Button>
+          </Form.Item>
+        )}
+      </Form>
+    </Spin>
   );
 };
 

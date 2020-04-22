@@ -1,6 +1,6 @@
 import React, { useState, FunctionComponent, useEffect } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import { Layout } from 'antd';
+import { Layout, Spin } from 'antd';
 import { Auth } from 'aws-amplify';
 import Home from './components/Home';
 import Login from './components/Login';
@@ -52,15 +52,15 @@ const App: FunctionComponent = () => {
     return routes;
   };
 
-  return isAuthenticating ? (
-    <p>Loading...</p>
-  ) : (
-    <AuthContext.Provider value={[isAuthenticated, setIsAuthenticated]}>
-      <Layout className="App">
-        <Header />
-        <Content className="App__content">{getRoutes()}</Content>
-      </Layout>
-    </AuthContext.Provider>
+  return (
+    <Spin spinning={isAuthenticating} size="large" tip="Loading...">
+      <AuthContext.Provider value={[isAuthenticated, setIsAuthenticated]}>
+        <Layout className="App">
+          <Header />
+          <Content className="App__content">{getRoutes()}</Content>
+        </Layout>
+      </AuthContext.Provider>
+    </Spin>
   );
 };
 
