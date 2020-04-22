@@ -19,4 +19,10 @@
   &__progress-bottom {
     line-height: 1;
   }
+
+  &__progress-bar {
+    .ant-progress-bg {
+      background-color: $color-danger;
+    }
+  }
 }

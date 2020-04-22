@@ -39,7 +39,7 @@ exports[`should render basic component 1`] = `
       class="GoalCard__progress-bottom"
     >
       <div
-        class="ant-progress ant-progress-line ant-progress-status-normal ant-progress-show-info ant-progress-default"
+        class="ant-progress ant-progress-line ant-progress-status-normal ant-progress-show-info ant-progress-default GoalCard__progress-bar"
       >
         <div
           class="ant-progress-outer"

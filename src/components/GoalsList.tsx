@@ -4,6 +4,8 @@ import GoalCard from './GoalCard';
 import { GoalResponse } from '../constants/interface';
 import getTargetProgress from '../utils/getTargetProgress';
 import shouldShowProgress from '../utils/shouldShowProgress';
+import getProgressPercent from '../utils/getProgressPercent';
+import getProgressTooltip from '../utils/getProgressTooltip';
 
 interface Props {
   title: string;
@@ -14,7 +16,7 @@ const GoalsList: FunctionComponent<Props> = (props) => {
   return (
     <div className="GoalsList">
       <h4>{props.title}</h4>
-      {props.goals.map((goal) => {
+      {props.goals.map((goal: GoalResponse) => {
         const {
           title,
           startDate,
@@ -29,11 +31,18 @@ const GoalsList: FunctionComponent<Props> = (props) => {
           amount,
           checklist
         );
+        const totalAmount = amount || (checklist && checklist.length) || 0;
         const targetProgress = getTargetProgress(
           startDate,
           endDate,
-          amount || (checklist && checklist.length)
+          totalAmount
         );
+        const { targetPercent, successPercent } = getProgressPercent(
+          progress,
+          targetProgress,
+          totalAmount
+        );
+
         return (
           <Link key={goal.goalId} to={`/goals/${goal.goalId}`}>
             <GoalCard
@@ -42,6 +51,13 @@ const GoalsList: FunctionComponent<Props> = (props) => {
               progress={progress}
               targetProgress={targetProgress}
               isStarted={isStarted}
+              targetPercent={targetPercent}
+              successPercent={successPercent}
+              progressTooltip={getProgressTooltip(
+                progress,
+                targetProgress,
+                totalAmount
+              )}
             />
           </Link>
         );

@@ -15,6 +15,8 @@ it('should render basic component', () => {
       progress={0}
       targetProgress={10}
       isStarted
+      targetPercent={60}
+      successPercent={30}
     />
   );
   expect(container.firstChild).toMatchSnapshot();

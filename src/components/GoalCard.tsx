@@ -5,9 +5,12 @@ import getEndDateColor from '../utils/getEndDateColor';
 interface Props {
   title: string;
   endDate: string | undefined;
+  isStarted: boolean;
   progress: number;
   targetProgress: number;
-  isStarted: boolean;
+  successPercent: number;
+  targetPercent: number;
+  progressTooltip: string;
 }
 
 const GoalCard: FunctionComponent<Props> = (props) => {
@@ -27,8 +30,12 @@ const GoalCard: FunctionComponent<Props> = (props) => {
             <span>{props.targetProgress}</span>
           </div>
           <div className="GoalCard__progress-bottom">
-            <Tooltip title="3 done / 3 in progress / 4 to do">
-              <Progress percent={60} successPercent={30} />
+            <Tooltip title={props.progressTooltip}>
+              <Progress
+                className="GoalCard__progress-bar"
+                percent={props.targetPercent}
+                successPercent={props.successPercent}
+              />
             </Tooltip>
           </div>
         </div>
