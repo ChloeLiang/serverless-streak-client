@@ -26,12 +26,7 @@ const GoalsList: FunctionComponent<Props> = (props) => {
             checklist,
             progress,
           } = goal.content;
-          const isStarted = shouldShowProgress(
-            startDate,
-            endDate,
-            amount,
-            checklist
-          );
+          const showProgress = shouldShowProgress(goal);
           const totalAmount = amount || (checklist && checklist.length) || 0;
           const targetProgress = getTargetProgress(
             startDate,
@@ -51,7 +46,7 @@ const GoalsList: FunctionComponent<Props> = (props) => {
                 endDate={endDate}
                 progress={progress}
                 targetProgress={targetProgress}
-                isStarted={isStarted}
+                showProgress={showProgress}
                 targetPercent={targetPercent}
                 successPercent={successPercent}
                 progressTooltip={getProgressTooltip(

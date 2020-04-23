@@ -14,7 +14,7 @@ it('should render basic component', () => {
       endDate="2020-04-13"
       progress={0}
       targetProgress={10}
-      isStarted
+      showProgress
       targetPercent={60}
       successPercent={30}
       progressTooltip="30 done / 30 in progress / 40 to do"

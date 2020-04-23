@@ -5,7 +5,7 @@ import getEndDateColor from '../utils/getEndDateColor';
 interface Props {
   title: string;
   endDate: string | undefined;
-  isStarted: boolean;
+  showProgress: boolean;
   progress: number;
   targetProgress: number;
   successPercent: number;
@@ -22,7 +22,7 @@ const GoalCard: FunctionComponent<Props> = (props) => {
           <Tag color={getEndDateColor(props.endDate)}>{props.endDate}</Tag>
         )}
       </div>
-      {props.isStarted && (
+      {props.showProgress && (
         <div>
           <div className="GoalCard__progress-top">
             <span>{props.progress}</span>

@@ -1,28 +1,24 @@
 import shouldShowProgress from '../../utils/shouldShowProgress';
+import {
+  upcomingGoals,
+  inProgressGoals,
+  completedGoals,
+} from '../../__mocks__/goals-list';
 
-it.each([
-  [undefined, undefined, undefined, undefined],
-  [undefined, undefined, 10, undefined],
-  [undefined, undefined, undefined, []],
-  ['2020-04-01', '2020-04-30', undefined, undefined],
-  ['2020-04-01', '2020-04-30', 0, undefined],
-  ['2020-04-01', '2020-04-30', undefined, []],
-])('should return false', (startDate, endDate, amount, checklist) => {
-  expect(shouldShowProgress(startDate, endDate, amount, checklist)).toEqual(
-    false
-  );
+it('should return false for upcoming goals', () => {
+  upcomingGoals.forEach((goal) => {
+    expect(shouldShowProgress(goal)).toEqual(false);
+  });
 });
 
-it.each([
-  ['2020-04-01', '2020-04-30', 10, undefined],
-  [
-    '2020-04-01',
-    '2020-04-30',
-    undefined,
-    [{ id: '1', label: 'a', isChecked: false }],
-  ],
-])('should return true', (startDate, endDate, amount, checklist) => {
-  expect(shouldShowProgress(startDate, endDate, amount, checklist)).toEqual(
-    true
-  );
+it('should return true for goals in progress', () => {
+  inProgressGoals.forEach((goal) => {
+    expect(shouldShowProgress(goal)).toEqual(true);
+  });
+});
+
+it('should return false for completed goals', () => {
+  completedGoals.forEach((goal) => {
+    expect(shouldShowProgress(goal)).toEqual(false);
+  });
 });
