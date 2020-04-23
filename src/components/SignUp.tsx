@@ -4,6 +4,7 @@ import { Row, Col, Form, Input, Button, Alert } from 'antd';
 import { Auth } from 'aws-amplify';
 import ERROR from '../constants/error';
 import AuthContext from '../contexts/AuthContext';
+import { inputLength } from '../constants/enum';
 
 const SignUp: FunctionComponent<RouteComponentProps> = (props) => {
   const [username, setUsername] = useState('');
@@ -81,6 +82,10 @@ const SignUp: FunctionComponent<RouteComponentProps> = (props) => {
                   required: true,
                   message: ERROR.CONFIRMATION_CODE,
                 },
+                {
+                  max: inputLength.confirmationCode,
+                  message: `Maximum ${inputLength.confirmationCode} characters`,
+                },
               ]}
             >
               <Input />
@@ -124,6 +129,10 @@ const SignUp: FunctionComponent<RouteComponentProps> = (props) => {
           rules={[
             { required: true, message: ERROR.REQUIRED_USERNAME },
             { type: 'email', message: ERROR.INVALID_USERNAME },
+            {
+              max: inputLength.username,
+              message: `Maximum ${inputLength.username} characters`,
+            },
           ]}
           hasFeedback
         >
@@ -142,6 +151,10 @@ const SignUp: FunctionComponent<RouteComponentProps> = (props) => {
               ),
               message: ERROR.INVALID_PASSWORD,
             },
+            {
+              max: inputLength.password,
+              message: `Maximum ${inputLength.password} characters`,
+            },
           ]}
         >
           <Input.Password />
@@ -154,6 +167,10 @@ const SignUp: FunctionComponent<RouteComponentProps> = (props) => {
           hasFeedback
           rules={[
             { required: true, message: ERROR.REQUIRED_PASSWORD },
+            {
+              max: inputLength.password,
+              message: `Maximum ${inputLength.password} characters`,
+            },
             ({ getFieldValue }) => ({
               validator(_, value) {
                 if (!value || getFieldValue('password') === value) {

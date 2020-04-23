@@ -18,7 +18,7 @@ import { CloseOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import { CheckboxChangeEvent } from 'antd/lib/checkbox';
 import { v4 as uuid } from 'uuid';
 import ERROR from '../constants/error';
-import { goalType } from '../constants/enum';
+import { goalType, inputLength } from '../constants/enum';
 import { Checklist, GoalResponse, Goal } from '../constants/interface';
 import { getGoal, deleteGoal } from '../services/goal';
 
@@ -126,6 +126,9 @@ const GoalForm: FunctionComponent<Props> = (props) => {
     e.preventDefault();
     const addItemInputName = 'checklistItem';
     const itemValue = form.getFieldValue(addItemInputName);
+    if (itemValue.length > inputLength.checklistItem) {
+      return;
+    }
     setChecklist(
       checklist.concat({
         id: uuid(),
@@ -206,11 +209,26 @@ const GoalForm: FunctionComponent<Props> = (props) => {
         <Form.Item
           name="title"
           label="Title"
-          rules={[{ required: true, message: ERROR.REQUIRED_TITLE }]}
+          rules={[
+            { required: true, message: ERROR.REQUIRED_TITLE },
+            {
+              max: inputLength.title,
+              message: `Maximum ${inputLength.title} characters`,
+            },
+          ]}
         >
           <Input />
         </Form.Item>
-        <Form.Item name="description" label="Description">
+        <Form.Item
+          name="description"
+          label="Description"
+          rules={[
+            {
+              max: inputLength.description,
+              message: `Maximum ${inputLength.description} characters`,
+            },
+          ]}
+        >
           <Input.TextArea />
         </Form.Item>
         <Form.Item name="period" label="Period">
@@ -233,10 +251,23 @@ const GoalForm: FunctionComponent<Props> = (props) => {
               return (
                 <>
                   <Form.Item name="amount" label="Amount">
-                    <InputNumber />
+                    <InputNumber min={0} />
                   </Form.Item>
-                  <Form.Item name="progress" label="Progress">
-                    <InputNumber />
+                  <Form.Item
+                    name="progress"
+                    label="Progress"
+                    rules={[
+                      ({ getFieldValue }) => ({
+                        validator(_, value) {
+                          if (!value || getFieldValue('amount') >= value) {
+                            return Promise.resolve();
+                          }
+                          return Promise.reject(ERROR.PROGRESS);
+                        },
+                      }),
+                    ]}
+                  >
+                    <InputNumber min={0} />
                   </Form.Item>
                 </>
               );
@@ -270,6 +301,12 @@ const GoalForm: FunctionComponent<Props> = (props) => {
                     {...noLabelLayout}
                     name="checklistItem"
                     className="NewGoal__add-item-input"
+                    rules={[
+                      {
+                        max: inputLength.checklistItem,
+                        message: `Maximum ${inputLength.checklistItem} characters`,
+                      },
+                    ]}
                   >
                     <Input
                       placeholder="Add an item"

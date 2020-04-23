@@ -4,6 +4,7 @@ import { Row, Col, Form, Input, Button, Alert } from 'antd';
 import { Auth } from 'aws-amplify';
 import ERROR from '../constants/error';
 import AuthContext from '../contexts/AuthContext';
+import { inputLength } from '../constants/enum';
 
 const Login: FunctionComponent<RouteComponentProps> = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -46,11 +47,15 @@ const Login: FunctionComponent<RouteComponentProps> = () => {
         <Form.Item
           label="Username"
           name="username"
+          hasFeedback
           rules={[
             { required: true, message: ERROR.REQUIRED_USERNAME },
             { type: 'email', message: ERROR.INVALID_USERNAME },
+            {
+              max: inputLength.username,
+              message: `Maximum ${inputLength.username} characters`,
+            },
           ]}
-          hasFeedback
         >
           <Input />
         </Form.Item>
@@ -58,8 +63,14 @@ const Login: FunctionComponent<RouteComponentProps> = () => {
         <Form.Item
           label="Password"
           name="password"
-          rules={[{ required: true, message: ERROR.REQUIRED_PASSWORD }]}
           hasFeedback
+          rules={[
+            { required: true, message: ERROR.REQUIRED_PASSWORD },
+            {
+              max: inputLength.password,
+              message: `Maximum ${inputLength.password} characters`,
+            },
+          ]}
         >
           <Input.Password />
         </Form.Item>
