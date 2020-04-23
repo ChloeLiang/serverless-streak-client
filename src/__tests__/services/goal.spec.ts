@@ -1,5 +1,5 @@
 import amplify from 'aws-amplify';
-import AWS from '../../constants/aws';
+import { AWS } from '../../constants/enum';
 import * as goalService from '../../services/goal';
 
 jest.mock('aws-amplify');

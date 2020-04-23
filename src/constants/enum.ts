@@ -1,3 +1,7 @@
+export enum AWS {
+  API_NAME = 'goals',
+}
+
 export enum goalType {
   NUMBER = 1,
   CHECKLIST = 2,

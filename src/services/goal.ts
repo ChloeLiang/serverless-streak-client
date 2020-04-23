@@ -1,5 +1,5 @@
 import { API } from 'aws-amplify';
-import AWS from '../constants/aws';
+import { AWS } from '../constants/enum';
 import { Goal } from '../constants/interface';
 
 function createGoal(goal: Goal) {
