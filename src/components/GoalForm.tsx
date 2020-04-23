@@ -31,6 +31,7 @@ const GoalForm: FunctionComponent<Props> = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [checklist, setChecklist] = useState<Checklist[]>([]);
   const [goal, setGoal] = useState<GoalResponse | null>(null);
+  const [showCompletedItems, setShowCompletedItems] = useState(false);
 
   const { id } = useParams();
   const history = useHistory();
@@ -178,6 +179,10 @@ const GoalForm: FunctionComponent<Props> = (props) => {
     );
   };
 
+  const onToggleCompletedItems = () => {
+    setShowCompletedItems(!showCompletedItems);
+  };
+
   const onDeleteGoal = () => {
     Modal.confirm({
       title: 'Do you want to delete this goal?',
@@ -202,7 +207,7 @@ const GoalForm: FunctionComponent<Props> = (props) => {
       <Form
         {...formLayout}
         form={form}
-        name="newGoal"
+        name="goal"
         onFinish={onFinish}
         autoComplete="off"
       >
@@ -276,31 +281,44 @@ const GoalForm: FunctionComponent<Props> = (props) => {
                 <>
                   {checklist.length > 0 && (
                     <Form.Item {...noLabelLayout}>
-                      {checklist.map((item) => (
-                        <Row key={item.id}>
-                          <Col span={23}>
-                            <Checkbox
-                              value={item.id}
-                              checked={item.isChecked}
-                              onChange={onChangeCheckbox}
-                            >
-                              {item.label}
-                            </Checkbox>
-                          </Col>
-                          <Col span={1}>
-                            <CloseOutlined
-                              className="NewGoal__icon"
-                              onClick={() => onRemoveChecklistItem(item.id)}
-                            />
-                          </Col>
-                        </Row>
-                      ))}
+                      <div className="u-right">
+                        <Button onClick={onToggleCompletedItems}>
+                          {showCompletedItems ? 'Hide' : 'Show'} completed items
+                        </Button>
+                      </div>
+                      {checklist.map((item) => {
+                        if (
+                          (item.isChecked && showCompletedItems) ||
+                          !item.isChecked
+                        ) {
+                          return (
+                            <Row key={item.id} justify="space-between">
+                              <Col span={23}>
+                                <Checkbox
+                                  value={item.id}
+                                  checked={item.isChecked}
+                                  onChange={onChangeCheckbox}
+                                >
+                                  {item.label}
+                                </Checkbox>
+                              </Col>
+                              <Col span={1} className="u-right">
+                                <CloseOutlined
+                                  className="GoalForm__icon"
+                                  onClick={() => onRemoveChecklistItem(item.id)}
+                                />
+                              </Col>
+                            </Row>
+                          );
+                        }
+                        return null;
+                      })}
                     </Form.Item>
                   )}
                   <Form.Item
                     {...noLabelLayout}
                     name="checklistItem"
-                    className="NewGoal__add-item-input"
+                    className="GoalForm__add-item-input"
                     rules={[
                       {
                         max: inputLength.checklistItem,

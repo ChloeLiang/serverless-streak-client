@@ -3,14 +3,4 @@
   @include respond(xl) {
     @include container;
   }
-
-  &__add-item-input {
-    margin-bottom: 0.6rem;
-  }
-
-  &__icon {
-    &:hover {
-      color: $color-danger;
-    }
-  }
 }
