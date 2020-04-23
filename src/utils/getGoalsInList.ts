@@ -9,8 +9,9 @@ const getGoalsInList = (goals: GoalResponse[], category: goalCategory) => {
   if (category === goalCategory.UPCOMING) {
     return goals.filter(
       (goal) =>
-        !goal.content.startDate ||
-        today.isBefore(startOfDay(goal.content.startDate))
+        !isGoalCompleted(goal) &&
+        (!goal.content.startDate ||
+          today.isBefore(startOfDay(goal.content.startDate)))
     );
   }
   if (category === goalCategory.IN_PROGRESS) {

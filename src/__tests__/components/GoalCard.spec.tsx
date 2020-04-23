@@ -17,6 +17,7 @@ it('should render basic component', () => {
       isStarted
       targetPercent={60}
       successPercent={30}
+      progressTooltip="30 done / 30 in progress / 40 to do"
     />
   );
   expect(container.firstChild).toMatchSnapshot();
