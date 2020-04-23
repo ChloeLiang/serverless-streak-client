@@ -13,6 +13,8 @@ export enum color {
   SUCCESS = '#87d068',
   WARNING = '#ffcc00',
   ERROR = '#f50',
+  DONE = '#6ec7fa',
+  UPCOMING = '#c1c4c0',
 }
 
 export enum inputLength {

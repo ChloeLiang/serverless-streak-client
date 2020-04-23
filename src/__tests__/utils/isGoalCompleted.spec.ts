@@ -1,4 +1,4 @@
-import isGoalCompleted from '../../utils/isGoalCompleted';
+import { isGoalCompleted } from '../../utils/getGoalStatus';
 import { goalNumber, goalChecklist } from '../../__mocks__/goal-response';
 import { GoalResponse } from '../../constants/interface';
 

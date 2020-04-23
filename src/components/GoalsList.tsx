@@ -6,6 +6,7 @@ import getTargetProgress from '../utils/getTargetProgress';
 import shouldShowProgress from '../utils/shouldShowProgress';
 import getProgressPercent from '../utils/getProgressPercent';
 import getProgressTooltip from '../utils/getProgressTooltip';
+import getEndDateColor from '../utils/getEndDateColor';
 
 interface Props {
   title: string;
@@ -44,6 +45,7 @@ const GoalsList: FunctionComponent<Props> = (props) => {
               <GoalCard
                 title={title}
                 endDate={endDate}
+                endDateColor={getEndDateColor(goal)}
                 progress={progress}
                 targetProgress={targetProgress}
                 showProgress={showProgress}

@@ -1,10 +1,10 @@
 import React, { FunctionComponent } from 'react';
 import { Tag, Tooltip, Progress } from 'antd';
-import getEndDateColor from '../utils/getEndDateColor';
 
 interface Props {
   title: string;
   endDate: string | undefined;
+  endDateColor: string;
   showProgress: boolean;
   progress: number;
   targetProgress: number;
@@ -18,9 +18,7 @@ const GoalCard: FunctionComponent<Props> = (props) => {
     <div className="GoalCard">
       <div className="GoalCard__header">
         <h3 className="GoalCard__title">{props.title}</h3>
-        {props.endDate && (
-          <Tag color={getEndDateColor(props.endDate)}>{props.endDate}</Tag>
-        )}
+        {props.endDate && <Tag color={props.endDateColor}>{props.endDate}</Tag>}
       </div>
       {props.showProgress && (
         <div>

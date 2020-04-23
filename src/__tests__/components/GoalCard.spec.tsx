@@ -12,6 +12,7 @@ it('should render basic component', () => {
     <GoalCard
       title="Title"
       endDate="2020-04-13"
+      endDateColor="#87d068"
       progress={0}
       targetProgress={10}
       showProgress

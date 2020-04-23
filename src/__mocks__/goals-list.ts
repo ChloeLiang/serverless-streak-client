@@ -122,6 +122,19 @@ const inProgressGoals: GoalResponse[] = [
       endDate: moment().add(30, 'days').format('YYYY-MM-DD'),
     },
   },
+  {
+    goalId: (inProgressIndexOffset + 5).toString(),
+    userId: '1',
+    createdAt: 1586948757972,
+    content: {
+      title: 'title',
+      type: goalType.NUMBER,
+      amount: 100,
+      progress: 90,
+      startDate: moment().subtract(10, 'days').format('YYYY-MM-DD'),
+      endDate: moment().add(1, 'day').format('YYYY-MM-DD'),
+    },
+  },
 ];
 
 const completedIndexOffset = upcomingGoals.length + inProgressGoals.length;

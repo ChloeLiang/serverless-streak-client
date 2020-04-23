@@ -1,15 +1,11 @@
-import moment from 'moment';
 import { GoalResponse } from '../constants/interface';
-import isGoalCompleted from './isGoalCompleted';
+import { isGoalInProgress } from './getGoalStatus';
 
 const shouldShowProgress = (goal: GoalResponse) => {
-  const { startDate, endDate, amount, checklist } = goal.content;
+  const { amount, checklist } = goal.content;
   return !!(
-    startDate &&
-    endDate &&
-    moment(startDate).startOf('day').isSameOrBefore(moment().startOf('day')) &&
-    ((amount && amount > 0) || (checklist && checklist.length > 0)) &&
-    !isGoalCompleted(goal)
+    isGoalInProgress(goal) &&
+    ((amount && amount > 0) || (checklist && checklist.length > 0))
   );
 };
 
