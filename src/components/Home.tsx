@@ -4,7 +4,6 @@ import React, {
   useContext,
   FunctionComponent,
 } from 'react';
-import { Spin } from 'antd';
 import AuthContext from '../contexts/AuthContext';
 import GoalsList from './GoalsList';
 import { getGoals } from '../services/goal';
@@ -38,22 +37,23 @@ const Home: FunctionComponent = () => {
 
   const renderGoalsList = (goals: GoalResponse[]) => {
     return (
-      <Spin spinning={isLoading} size="large">
-        <div className="Home__goals-container">
-          <GoalsList
-            title={goalCategory.UPCOMING}
-            goals={getGoalsInList(goals, goalCategory.UPCOMING)}
-          />
-          <GoalsList
-            title={goalCategory.IN_PROGRESS}
-            goals={getGoalsInList(goals, goalCategory.IN_PROGRESS)}
-          />
-          <GoalsList
-            title={goalCategory.DONE}
-            goals={getGoalsInList(goals, goalCategory.DONE)}
-          />
-        </div>
-      </Spin>
+      <div className="Home__goals-container">
+        <GoalsList
+          isLoading={isLoading}
+          title={goalCategory.UPCOMING}
+          goals={getGoalsInList(goals, goalCategory.UPCOMING)}
+        />
+        <GoalsList
+          isLoading={isLoading}
+          title={goalCategory.IN_PROGRESS}
+          goals={getGoalsInList(goals, goalCategory.IN_PROGRESS)}
+        />
+        <GoalsList
+          isLoading={isLoading}
+          title={goalCategory.DONE}
+          goals={getGoalsInList(goals, goalCategory.DONE)}
+        />
+      </div>
     );
   };
 
