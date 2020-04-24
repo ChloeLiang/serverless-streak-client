@@ -1,9 +1,7 @@
 import React from 'react';
-import { render, cleanup } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Header from '../../components/Header';
-
-afterEach(cleanup);
 
 it('should render basic component', () => {
   const { container } = render(

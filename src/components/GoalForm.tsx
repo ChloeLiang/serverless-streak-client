@@ -310,7 +310,7 @@ const GoalForm: FunctionComponent<Props> = (props) => {
               return (
                 <>
                   {checklist.length > 0 && (
-                    <Form.Item {...noLabelLayout}>
+                    <Form.Item {...noLabelLayout} data-testid="checklist-item">
                       <div className="u-right">
                         <Button onClick={onToggleCompletedItems}>
                           {showCompletedItems ? 'Hide' : 'Show'} completed items

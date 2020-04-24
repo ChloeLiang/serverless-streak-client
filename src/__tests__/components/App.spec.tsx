@@ -3,7 +3,6 @@ import { MemoryRouter } from 'react-router-dom';
 import awsAmplify from 'aws-amplify';
 import {
   render,
-  cleanup,
   screen,
   fireEvent,
   waitForElementToBeRemoved,
@@ -16,22 +15,7 @@ jest.mock('../../components/Home.tsx', () => {
   return () => <p>Home Page</p>;
 });
 
-afterEach(cleanup);
 afterEach(jest.clearAllMocks);
-
-Object.defineProperty(window, 'matchMedia', {
-  writable: true,
-  value: jest.fn().mockImplementation((query) => ({
-    matches: false,
-    media: query,
-    onchange: null,
-    addListener: jest.fn(), // deprecated
-    removeListener: jest.fn(), // deprecated
-    addEventListener: jest.fn(),
-    removeEventListener: jest.fn(),
-    dispatchEvent: jest.fn(),
-  })),
-});
 
 it('should render home page', async () => {
   awsAmplify.Auth.currentSession.mockImplementationOnce(() => {

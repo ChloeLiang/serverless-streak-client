@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render goal details 1`] = `
+<div
+  class="goal-form-container"
+>
+  <p>
+    Goal Form
+  </p>
+</div>
+`;
