@@ -20,7 +20,7 @@ const GoalsList: FunctionComponent<Props> = (props) => {
     <div className="GoalsList">
       <h4>{props.title}</h4>
       <div className="GoalsList__cards">
-        <Spin spinning={props.isLoading}>
+        <Spin spinning={props.isLoading} className="GoalsList__spin">
           {props.goals.map((goal: GoalResponse) => {
             const {
               title,

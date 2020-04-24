@@ -5,6 +5,10 @@
   display: flex;
   flex-direction: column;
 
+  &__spin {
+    padding-top: 4rem;
+  }
+
   &__cards {
     flex-grow: 1;
     overflow-y: auto;
