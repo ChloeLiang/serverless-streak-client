@@ -1,3 +1,13 @@
 .u-right {
   text-align: right;
 }
+
+.u-hover {
+  &--primary:hover {
+    color: $color-primary;
+  }
+
+  &--error:hover {
+    color: $color-danger;
+  }
+}

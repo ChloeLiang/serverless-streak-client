@@ -3,9 +3,21 @@
     margin-bottom: 0.6rem;
   }
 
-  &__icon {
-    &:hover {
-      color: $color-danger;
+  &__checkbox {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+
+    .ant-checkbox {
+      margin-top: 0.38rem;
     }
+
+    span:last-child {
+      flex-grow: 1;
+    }
+  }
+
+  &__form-item {
+    margin-bottom: 0;
   }
 }

@@ -14,7 +14,12 @@ import {
   Button,
   Spin,
 } from 'antd';
-import { CloseOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import {
+  DeleteOutlined,
+  EditOutlined,
+  CheckOutlined,
+  ExclamationCircleOutlined,
+} from '@ant-design/icons';
 import { CheckboxChangeEvent } from 'antd/lib/checkbox';
 import { v4 as uuid } from 'uuid';
 import ERROR from '../constants/error';
@@ -32,6 +37,7 @@ const GoalForm: FunctionComponent<Props> = (props) => {
   const [checklist, setChecklist] = useState<Checklist[]>([]);
   const [goal, setGoal] = useState<GoalResponse | null>(null);
   const [showCompletedItems, setShowCompletedItems] = useState(false);
+  const [isEditingItemId, setIsEditingItemId] = useState('');
 
   const { id } = useParams();
   const history = useHistory();
@@ -179,6 +185,30 @@ const GoalForm: FunctionComponent<Props> = (props) => {
     );
   };
 
+  const onEditItem = (item: Checklist) => {
+    const { id, label } = item;
+    setIsEditingItemId(id);
+    form.setFieldsValue({
+      editItem: label,
+    });
+  };
+
+  const onCompleteEditingItem = (item: Checklist) => {
+    const { id } = item;
+    setChecklist(
+      checklist.map((item) => {
+        if (item.id === id) {
+          return {
+            ...item,
+            label: form.getFieldValue('editItem'),
+          };
+        }
+        return item;
+      })
+    );
+    setIsEditingItemId('');
+  };
+
   const onToggleCompletedItems = () => {
     setShowCompletedItems(!showCompletedItems);
   };
@@ -293,18 +323,43 @@ const GoalForm: FunctionComponent<Props> = (props) => {
                         ) {
                           return (
                             <Row key={item.id} justify="space-between">
-                              <Col span={23}>
+                              <Col span={22}>
                                 <Checkbox
+                                  className="GoalForm__checkbox"
                                   value={item.id}
                                   checked={item.isChecked}
                                   onChange={onChangeCheckbox}
                                 >
-                                  {item.label}
+                                  {isEditingItemId === item.id ? (
+                                    <Form.Item
+                                      name="editItem"
+                                      className="GoalForm__form-item"
+                                    >
+                                      <Input />
+                                    </Form.Item>
+                                  ) : (
+                                    item.label
+                                  )}
                                 </Checkbox>
                               </Col>
+                              {isEditingItemId === item.id ? (
+                                <Col span={1} className="u-right">
+                                  <CheckOutlined
+                                    className="u-hover--primary"
+                                    onClick={() => onCompleteEditingItem(item)}
+                                  />
+                                </Col>
+                              ) : (
+                                <Col span={1} className="u-right">
+                                  <EditOutlined
+                                    className="u-hover--primary"
+                                    onClick={() => onEditItem(item)}
+                                  />
+                                </Col>
+                              )}
                               <Col span={1} className="u-right">
-                                <CloseOutlined
-                                  className="GoalForm__icon"
+                                <DeleteOutlined
+                                  className="u-hover--error"
                                   onClick={() => onRemoveChecklistItem(item.id)}
                                 />
                               </Col>
