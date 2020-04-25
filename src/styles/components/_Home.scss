@@ -2,8 +2,7 @@
   height: 100%;
 
   &__landing {
-    padding-top: 20vh;
-    text-align: center;
+    @include homeTextContainer;
   }
 
   &__goals-container {

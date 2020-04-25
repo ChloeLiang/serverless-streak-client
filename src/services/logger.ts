@@ -1,3 +1,4 @@
+import { ErrorInfo } from 'react';
 import * as Sentry from '@sentry/browser';
 import config from '../config';
 
@@ -12,7 +13,7 @@ const initSentry = () => {
 
 const logError = (
   error: Error,
-  errorInfo: Error | { url: string } | undefined
+  errorInfo: ErrorInfo | { url: string } | undefined
 ) => {
   if (isLocal) {
     return;
@@ -40,4 +41,4 @@ const onError = (error: any) => {
   logError(error, errorInfo);
 };
 
-export { initSentry, onError };
+export { initSentry, logError, onError };

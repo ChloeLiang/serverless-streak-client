@@ -9,6 +9,7 @@ import AuthContext from './contexts/AuthContext';
 import SignUp from './components/SignUp';
 import NewGoal from './components/NewGoal';
 import GoalDetails from './components/GoalDetails';
+import ErrorBoundary from './components/ErrorBoundary';
 
 const App: FunctionComponent = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -54,12 +55,14 @@ const App: FunctionComponent = () => {
 
   return (
     <Spin spinning={isAuthenticating} size="large" tip="Loading...">
-      <AuthContext.Provider value={[isAuthenticated, setIsAuthenticated]}>
-        <Layout className="App">
-          <Header />
-          <Content className="App__content">{getRoutes()}</Content>
-        </Layout>
-      </AuthContext.Provider>
+      <ErrorBoundary>
+        <AuthContext.Provider value={[isAuthenticated, setIsAuthenticated]}>
+          <Layout className="App">
+            <Header />
+            <Content className="App__content">{getRoutes()}</Content>
+          </Layout>
+        </AuthContext.Provider>
+      </ErrorBoundary>
     </Spin>
   );
 };

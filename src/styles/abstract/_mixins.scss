@@ -38,3 +38,8 @@
   max-width: $max-width;
   margin: 0 auto;
 }
+
+@mixin homeTextContainer {
+  padding-top: 20vh;
+  text-align: center;
+}
