@@ -121,7 +121,7 @@ const GoalForm: FunctionComponent<Props> = (props) => {
       goalPayload.checklist = checklist;
     }
     try {
-      props.submitCallback(goalPayload, goal?.goalId);
+      await props.submitCallback(goalPayload, goal?.goalId);
       history.push('/');
     } catch (e) {
       // TODO Handle error

@@ -1,14 +1,18 @@
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import GoalsList from '../../components/GoalsList';
 import { upcomingGoals } from '../../__mocks__/goals-list';
 
+jest.mock('../../components/GoalCard', () => {
+  return () => <p>GoalCard</p>;
+});
+
 it('should render a list of goals', () => {
-  const { container } = render(
+  render(
     <MemoryRouter>
       <GoalsList isLoading={false} title="Upcoming" goals={upcomingGoals} />
     </MemoryRouter>
   );
-  expect(container.firstChild).toMatchSnapshot();
+  expect(screen.queryAllByText('GoalCard')).toHaveLength(upcomingGoals.length);
 });
