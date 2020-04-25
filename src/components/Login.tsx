@@ -1,4 +1,9 @@
-import React, { useState, useContext, FunctionComponent } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  FunctionComponent,
+} from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { Row, Col, Form, Input, Button, Alert } from 'antd';
 import { Auth } from 'aws-amplify';
@@ -6,11 +11,19 @@ import ERROR from '../constants/error';
 import AuthContext from '../contexts/AuthContext';
 import { inputLength } from '../constants/enum';
 import { onError } from '../services/logger';
+import { tagEvent } from '../services/analytics';
 
 const Login: FunctionComponent<RouteComponentProps> = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [loginError, setLoginError] = useState('');
   const [, setIsAuthenticated] = useContext(AuthContext);
+
+  useEffect(() => {
+    tagEvent({
+      category: 'Login Page',
+      action: 'User navigates to login page',
+    });
+  }, []);
 
   /**
    * TODO Currently it's not able to define the type of values.
@@ -28,6 +41,10 @@ const Login: FunctionComponent<RouteComponentProps> = () => {
       onError(e);
       setIsLoading(false);
     }
+    tagEvent({
+      category: 'Login',
+      action: 'User submits Login form',
+    });
   };
 
   return (

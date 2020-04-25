@@ -4,6 +4,7 @@ import { Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import AuthContext from '../contexts/AuthContext';
 import { Auth } from 'aws-amplify';
+import { tagEvent } from '../services/analytics';
 
 const Navigation: FunctionComponent<RouteComponentProps> = (props) => {
   const [isAuthenticated, setIsAuthenticated] = useContext(AuthContext);
@@ -11,6 +12,10 @@ const Navigation: FunctionComponent<RouteComponentProps> = (props) => {
   const handleLogout = async () => {
     await Auth.signOut();
     setIsAuthenticated(false);
+    tagEvent({
+      category: 'Logout',
+      action: 'User clicks logout',
+    });
     props.history.push('/login');
   };
 

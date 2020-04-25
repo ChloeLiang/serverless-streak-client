@@ -1,4 +1,9 @@
-import React, { useState, useContext, FunctionComponent } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  FunctionComponent,
+} from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { Row, Col, Form, Input, Button, Alert } from 'antd';
 import { Auth } from 'aws-amplify';
@@ -6,6 +11,7 @@ import ERROR from '../constants/error';
 import AuthContext from '../contexts/AuthContext';
 import { inputLength } from '../constants/enum';
 import { onError } from '../services/logger';
+import { tagEvent } from '../services/analytics';
 
 const SignUp: FunctionComponent<RouteComponentProps> = (props) => {
   const [username, setUsername] = useState('');
@@ -13,6 +19,14 @@ const SignUp: FunctionComponent<RouteComponentProps> = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [signUpError, setSignUpError] = useState('');
   const [, setIsAuthenticated] = useContext(AuthContext);
+
+  useEffect(() => {
+    tagEvent({
+      category: 'Sign Up Page',
+      action: 'User navigates to sign up page',
+      nonInteraction: true,
+    });
+  }, []);
 
   /**
    * TODO Currently it's not able to define the type of values.
@@ -42,6 +56,10 @@ const SignUp: FunctionComponent<RouteComponentProps> = (props) => {
         setSignUpError(e.message);
       }
     }
+    tagEvent({
+      category: 'Sign Up',
+      action: 'User submits sign up form',
+    });
   };
 
   /**
@@ -62,6 +80,10 @@ const SignUp: FunctionComponent<RouteComponentProps> = (props) => {
       onError(e);
       setIsLoading(false);
     }
+    tagEvent({
+      category: 'Sign Up Confirmation',
+      action: 'User submits sign up confirmation code',
+    });
   };
 
   const renderConfirmationForm = () => {

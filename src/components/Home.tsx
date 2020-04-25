@@ -11,6 +11,7 @@ import { GoalResponse } from '../constants/interface';
 import { goalCategory } from '../constants/enum';
 import getGoalsInList from '../utils/getGoalsInList';
 import { onError } from '../services/logger';
+import { tagEvent } from '../services/analytics';
 
 const Home: FunctionComponent = () => {
   const [isAuthenticated] = useContext(AuthContext);
@@ -20,6 +21,12 @@ const Home: FunctionComponent = () => {
 
   useEffect(() => {
     const onLoad = async () => {
+      tagEvent({
+        category: 'Home Page',
+        action: 'User navigates to home page',
+        label: isAuthenticated ? 'User is authenticated' : 'Not authenticated',
+        nonInteraction: true,
+      });
       if (!isAuthenticated) {
         setIsLoading(false);
         return;

@@ -27,6 +27,7 @@ import { goalType, inputLength } from '../constants/enum';
 import { Checklist, GoalResponse, Goal } from '../constants/interface';
 import { getGoal, deleteGoal } from '../services/goal';
 import { onError } from '../services/logger';
+import { tagEvent } from '../services/analytics';
 
 interface Props {
   type: 'create' | 'save';
@@ -127,6 +128,27 @@ const GoalForm: FunctionComponent<Props> = (props) => {
       onError(e);
       setIsLoading(false);
     }
+    tagEvent({
+      category: 'Type',
+      action: 'Choose goal type',
+      label: props.type,
+      value: type,
+      nonInteraction: true,
+    });
+    tagEvent({
+      category: 'Amount',
+      action: 'Enter goal amount',
+      label: props.type,
+      value: amount || 0,
+      nonInteraction: true,
+    });
+    tagEvent({
+      category: 'Checklist Items',
+      action: 'Add number of checklist items',
+      label: props.type,
+      value: checklist ? checklist.length : 0,
+      nonInteraction: true,
+    });
   };
 
   const onAddChecklistItem = (e: React.MouseEvent | React.KeyboardEvent) => {

@@ -6,6 +6,7 @@ import config from './config';
 import App from './App';
 import { AWS } from './constants/enum';
 import { initSentry } from './services/logger';
+import { initAnalytics } from './services/analytics';
 import './styles/main.scss';
 
 Amplify.configure({
@@ -33,6 +34,7 @@ Amplify.configure({
 });
 
 initSentry();
+initAnalytics();
 
 ReactDOM.render(
   <React.StrictMode>
