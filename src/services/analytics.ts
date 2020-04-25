@@ -1,11 +1,16 @@
 import ReactGA, { EventArgs } from 'react-ga';
 
 const initAnalytics = () => {
-  ReactGA.initialize(process.env.REACT_APP_GA_TRACKING_ID || '');
+  if (process.env.NODE_ENV === 'production') {
+    ReactGA.initialize(process.env.REACT_APP_GA_TRACKING_ID || '');
+    ReactGA.pageview(window.location.pathname + window.location.search);
+  }
 };
 
 const tagEvent = (interaction: EventArgs) => {
-  ReactGA.event(interaction);
+  if (process.env.NODE_ENV === 'production') {
+    ReactGA.event(interaction);
+  }
 };
 
 export { initAnalytics, tagEvent };
