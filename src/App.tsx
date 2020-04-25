@@ -10,6 +10,7 @@ import SignUp from './components/SignUp';
 import NewGoal from './components/NewGoal';
 import GoalDetails from './components/GoalDetails';
 import ErrorBoundary from './components/ErrorBoundary';
+import { onError } from './services/logger';
 
 const App: FunctionComponent = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -26,7 +27,7 @@ const App: FunctionComponent = () => {
       await Auth.currentSession();
       setIsAuthenticated(true);
     } catch (e) {
-      console.error(e);
+      onError(e);
     }
     setIsAuthenticating(false);
   };

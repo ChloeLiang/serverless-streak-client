@@ -5,6 +5,7 @@ import { Auth } from 'aws-amplify';
 import ERROR from '../constants/error';
 import AuthContext from '../contexts/AuthContext';
 import { inputLength } from '../constants/enum';
+import { onError } from '../services/logger';
 
 const SignUp: FunctionComponent<RouteComponentProps> = (props) => {
   const [username, setUsername] = useState('');
@@ -30,6 +31,7 @@ const SignUp: FunctionComponent<RouteComponentProps> = (props) => {
       setUsername(username);
       setPassword(password);
     } catch (e) {
+      onError(e);
       if (e.code === 'UsernameExistsException') {
         setUsername(username);
         setPassword(password);
@@ -57,6 +59,7 @@ const SignUp: FunctionComponent<RouteComponentProps> = (props) => {
       props.history.push('/');
     } catch (e) {
       setSignUpError(e.message);
+      onError(e);
       setIsLoading(false);
     }
   };

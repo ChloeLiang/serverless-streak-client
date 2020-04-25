@@ -10,6 +10,7 @@ import { getGoals } from '../services/goal';
 import { GoalResponse } from '../constants/interface';
 import { goalCategory } from '../constants/enum';
 import getGoalsInList from '../utils/getGoalsInList';
+import { onError } from '../services/logger';
 
 const Home: FunctionComponent = () => {
   const [isAuthenticated] = useContext(AuthContext);
@@ -27,8 +28,7 @@ const Home: FunctionComponent = () => {
         const goals = await getGoals();
         setGoals(goals);
       } catch (e) {
-        // TODO: handle error
-        console.error(e);
+        onError(e);
       }
       setIsLoading(false);
     };

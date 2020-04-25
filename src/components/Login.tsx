@@ -5,6 +5,7 @@ import { Auth } from 'aws-amplify';
 import ERROR from '../constants/error';
 import AuthContext from '../contexts/AuthContext';
 import { inputLength } from '../constants/enum';
+import { onError } from '../services/logger';
 
 const Login: FunctionComponent<RouteComponentProps> = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -24,6 +25,7 @@ const Login: FunctionComponent<RouteComponentProps> = () => {
       setIsAuthenticated(true);
     } catch (e) {
       setLoginError(e.message);
+      onError(e);
       setIsLoading(false);
     }
   };

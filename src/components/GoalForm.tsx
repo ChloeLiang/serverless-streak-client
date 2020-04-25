@@ -26,6 +26,7 @@ import ERROR from '../constants/error';
 import { goalType, inputLength } from '../constants/enum';
 import { Checklist, GoalResponse, Goal } from '../constants/interface';
 import { getGoal, deleteGoal } from '../services/goal';
+import { onError } from '../services/logger';
 
 interface Props {
   type: 'create' | 'save';
@@ -91,8 +92,7 @@ const GoalForm: FunctionComponent<Props> = (props) => {
           setIsLoading(false);
         }
       } catch (e) {
-        // TODO: handle error
-        console.error(e);
+        onError(e);
         setIsLoading(false);
       }
     };
@@ -124,7 +124,7 @@ const GoalForm: FunctionComponent<Props> = (props) => {
       await props.submitCallback(goalPayload, goal?.goalId);
       history.push('/');
     } catch (e) {
-      // TODO Handle error
+      onError(e);
       setIsLoading(false);
     }
   };
@@ -224,8 +224,7 @@ const GoalForm: FunctionComponent<Props> = (props) => {
             await deleteGoal(id);
             history.push('/');
           } catch (e) {
-            // TODO: Handle error
-            console.error(e);
+            onError(e);
           }
         }
       },
