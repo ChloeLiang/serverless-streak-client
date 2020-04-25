@@ -13,6 +13,9 @@ const config = {
     APP_CLIENT_ID: process.env.REACT_APP_COGNITO_APP_CLIENT_ID,
     IDENTITY_POOL_ID: process.env.REACT_APP_COGNITO_IDENTITY_POOL_ID,
   },
+  sentry: {
+    DSN: process.env.REACT_APP_SENTRY_DSN,
+  },
 };
 
 export default config;

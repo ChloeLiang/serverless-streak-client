@@ -33,7 +33,7 @@ const Home: FunctionComponent = () => {
       setIsLoading(false);
     };
     onLoad();
-  }, [isAuthenticated, goals]);
+  }, [isAuthenticated]);
 
   const renderGoalsList = (goals: GoalResponse[]) => {
     return (
