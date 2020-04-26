@@ -170,9 +170,8 @@ const GoalForm: FunctionComponent<Props> = (props) => {
 
   const onPasteChecklistItem = (e: React.ClipboardEvent<HTMLInputElement>) => {
     const pasteData = e.clipboardData && e.clipboardData.getData('text');
-    if (pasteData) {
-      const splitData = pasteData.split('\n');
-      resetAddItemInput();
+    const splitData = pasteData.split('\n');
+    if (splitData.length > 1) {
       setChecklist(
         checklist.concat(
           splitData.map((item) => ({
@@ -182,6 +181,7 @@ const GoalForm: FunctionComponent<Props> = (props) => {
           }))
         )
       );
+      setTimeout(resetAddItemInput, 0);
     }
   };
 
