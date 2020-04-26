@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { Link } from 'react-router-dom';
-import { Spin } from 'antd';
+import { Spin, Empty } from 'antd';
 import GoalCard from './GoalCard';
 import { GoalResponse } from '../constants/interface';
 import getTargetProgress from '../utils/getTargetProgress';
@@ -18,51 +18,56 @@ interface Props {
 const GoalsList: FunctionComponent<Props> = (props) => {
   return (
     <div className="GoalsList">
-      <h4>{props.title}</h4>
+      <h4 className="GoalsList__title">{props.title}</h4>
       <div className="GoalsList__cards">
         <Spin spinning={props.isLoading} className="GoalsList__spin">
-          {props.goals.map((goal: GoalResponse) => {
-            const {
-              title,
-              startDate,
-              endDate,
-              amount,
-              checklist,
-              progress,
-            } = goal.content;
-            const showProgress = shouldShowProgress(goal);
-            const totalAmount = amount || (checklist && checklist.length) || 0;
-            const targetProgress = getTargetProgress(
-              startDate,
-              endDate,
-              totalAmount
-            );
-            const { targetPercent, successPercent } = getProgressPercent(
-              progress,
-              targetProgress,
-              totalAmount
-            );
+          {props.goals.length === 0 ? (
+            <Empty data-testid="empty" />
+          ) : (
+            props.goals.map((goal: GoalResponse) => {
+              const {
+                title,
+                startDate,
+                endDate,
+                amount,
+                checklist,
+                progress,
+              } = goal.content;
+              const showProgress = shouldShowProgress(goal);
+              const totalAmount =
+                amount || (checklist && checklist.length) || 0;
+              const targetProgress = getTargetProgress(
+                startDate,
+                endDate,
+                totalAmount
+              );
+              const { targetPercent, successPercent } = getProgressPercent(
+                progress,
+                targetProgress,
+                totalAmount
+              );
 
-            return (
-              <Link key={goal.goalId} to={`/goals/${goal.goalId}`}>
-                <GoalCard
-                  title={title}
-                  endDate={endDate}
-                  endDateColor={getEndDateColor(goal)}
-                  progress={progress}
-                  targetProgress={targetProgress}
-                  showProgress={showProgress}
-                  targetPercent={targetPercent}
-                  successPercent={successPercent}
-                  progressTooltip={getProgressTooltip(
-                    progress,
-                    targetProgress,
-                    totalAmount
-                  )}
-                />
-              </Link>
-            );
-          })}
+              return (
+                <Link key={goal.goalId} to={`/goals/${goal.goalId}`}>
+                  <GoalCard
+                    title={title}
+                    endDate={endDate}
+                    endDateColor={getEndDateColor(goal)}
+                    progress={progress}
+                    targetProgress={targetProgress}
+                    showProgress={showProgress}
+                    targetPercent={targetPercent}
+                    successPercent={successPercent}
+                    progressTooltip={getProgressTooltip(
+                      progress,
+                      targetProgress,
+                      totalAmount
+                    )}
+                  />
+                </Link>
+              );
+            })
+          )}
         </Spin>
       </div>
     </div>

@@ -40,6 +40,7 @@ const GoalForm: FunctionComponent<Props> = (props) => {
   const [goal, setGoal] = useState<GoalResponse | null>(null);
   const [showCompletedItems, setShowCompletedItems] = useState(false);
   const [isEditingItemId, setIsEditingItemId] = useState('');
+  const [autoFocusAddItem, setAutoFocusAddItem] = useState(false);
 
   const { id } = useParams();
   const history = useHistory();
@@ -166,13 +167,13 @@ const GoalForm: FunctionComponent<Props> = (props) => {
       })
     );
     resetAddItemInput();
+    setAutoFocusAddItem(true);
   };
 
   const onPasteChecklistItem = (e: React.ClipboardEvent<HTMLInputElement>) => {
     const pasteData = e.clipboardData && e.clipboardData.getData('text');
-    if (pasteData) {
-      const splitData = pasteData.split('\n');
-      resetAddItemInput();
+    const splitData = pasteData.split('\n');
+    if (splitData.length > 1) {
       setChecklist(
         checklist.concat(
           splitData.map((item) => ({
@@ -182,6 +183,7 @@ const GoalForm: FunctionComponent<Props> = (props) => {
           }))
         )
       );
+      setTimeout(resetAddItemInput, 0);
     }
   };
 
@@ -406,7 +408,7 @@ const GoalForm: FunctionComponent<Props> = (props) => {
                       placeholder="Add an item"
                       onPaste={onPasteChecklistItem}
                       onPressEnter={onAddChecklistItem}
-                      autoFocus
+                      autoFocus={autoFocusAddItem}
                     />
                   </Form.Item>
                   <Form.Item {...noLabelLayout}>

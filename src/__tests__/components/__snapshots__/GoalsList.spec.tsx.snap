@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render a list of goals 1`] = `
+<div
+  class="GoalsList"
+>
+  <h4
+    class="GoalsList__title"
+  >
+    Upcoming
+  </h4>
+  <div
+    class="GoalsList__cards"
+  >
+    <div
+      class="ant-spin-nested-loading"
+    >
+      <div
+        class="ant-spin-container"
+      >
+        <a
+          href="/goals/1"
+        >
+          <p>
+            GoalCard
+          </p>
+        </a>
+        <a
+          href="/goals/2"
+        >
+          <p>
+            GoalCard
+          </p>
+        </a>
+        <a
+          href="/goals/3"
+        >
+          <p>
+            GoalCard
+          </p>
+        </a>
+        <a
+          href="/goals/4"
+        >
+          <p>
+            GoalCard
+          </p>
+        </a>
+        <a
+          href="/goals/5"
+        >
+          <p>
+            GoalCard
+          </p>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`should render basic component 1`] = `
+exports[`should render basic component - ahead of target 1`] = `
 <div
   class="GoalCard"
 >
@@ -24,6 +24,77 @@ exports[`should render basic component 1`] = `
       class="GoalCard__progress-top"
     >
       <span>
+        10
+      </span>
+      <span
+        class="GoalCard__progress-top-slash"
+      >
+        /
+      </span>
+      <span>
+        10
+      </span>
+    </div>
+    <div
+      class="GoalCard__progress-bottom"
+    >
+      <div
+        class="ant-progress ant-progress-line ant-progress-status-normal ant-progress-show-info ant-progress-default GoalCard__progress-bar"
+      >
+        <div
+          class="ant-progress-outer"
+        >
+          <div
+            class="ant-progress-inner"
+          >
+            <div
+              class="ant-progress-bg"
+              style="width: 10%; height: 8px;"
+            />
+            <div
+              class="ant-progress-success-bg"
+              style="width: 10%; height: 8px;"
+            />
+          </div>
+        </div>
+        <span
+          class="ant-progress-text"
+          title="10%"
+        >
+          10%
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`should render basic component - behind target 1`] = `
+<div
+  class="GoalCard"
+>
+  <div
+    class="GoalCard__header"
+  >
+    <h3
+      class="GoalCard__title"
+    >
+      Title
+    </h3>
+    <span
+      class="ant-tag ant-tag-has-color"
+      style="background-color: rgb(135, 208, 104);"
+    >
+      2020-04-13
+    </span>
+  </div>
+  <div>
+    <div
+      class="GoalCard__progress-top"
+    >
+      <span
+        class="u-color-danger"
+      >
         0
       </span>
       <span

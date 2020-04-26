@@ -9,10 +9,20 @@ jest.mock('../../components/GoalCard', () => {
 });
 
 it('should render a list of goals', () => {
-  render(
+  const { container } = render(
     <MemoryRouter>
       <GoalsList isLoading={false} title="Upcoming" goals={upcomingGoals} />
     </MemoryRouter>
   );
+  expect(container.firstChild).toMatchSnapshot();
   expect(screen.queryAllByText('GoalCard')).toHaveLength(upcomingGoals.length);
+});
+
+it('should show empty image if no goal list is empty', () => {
+  render(
+    <MemoryRouter>
+      <GoalsList isLoading={false} title="Upcoming" goals={[]} />
+    </MemoryRouter>
+  );
+  expect(screen.queryByTestId('empty')).toBeTruthy();
 });

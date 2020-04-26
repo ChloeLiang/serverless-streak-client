@@ -76,7 +76,7 @@ const Login: FunctionComponent<RouteComponentProps> = () => {
             },
           ]}
         >
-          <Input />
+          <Input placeholder="Email address" />
         </Form.Item>
 
         <Form.Item
@@ -91,7 +91,7 @@ const Login: FunctionComponent<RouteComponentProps> = () => {
             },
           ]}
         >
-          <Input.Password />
+          <Input.Password placeholder="Password" />
         </Form.Item>
 
         <Form.Item
