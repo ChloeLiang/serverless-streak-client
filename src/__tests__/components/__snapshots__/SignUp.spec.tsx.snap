@@ -35,6 +35,7 @@ exports[`should render basic component 1`] = `
             <input
               class="ant-input"
               id="signUp_username"
+              placeholder="Email address"
               type="text"
               value=""
             />
@@ -72,6 +73,7 @@ exports[`should render basic component 1`] = `
                 action="click"
                 class="ant-input"
                 id="signUp_password"
+                placeholder="Password"
                 type="password"
                 value=""
               />
@@ -138,6 +140,7 @@ exports[`should render basic component 1`] = `
                 action="click"
                 class="ant-input"
                 id="signUp_confirmPassword"
+                placeholder="Confirm password"
                 type="password"
                 value=""
               />

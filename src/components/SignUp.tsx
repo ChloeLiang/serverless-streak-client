@@ -161,7 +161,7 @@ const SignUp: FunctionComponent<RouteComponentProps> = (props) => {
           ]}
           hasFeedback
         >
-          <Input />
+          <Input placeholder="Email address" />
         </Form.Item>
 
         <Form.Item
@@ -182,7 +182,7 @@ const SignUp: FunctionComponent<RouteComponentProps> = (props) => {
             },
           ]}
         >
-          <Input.Password />
+          <Input.Password placeholder="Password" />
         </Form.Item>
 
         <Form.Item
@@ -206,7 +206,7 @@ const SignUp: FunctionComponent<RouteComponentProps> = (props) => {
             }),
           ]}
         >
-          <Input.Password />
+          <Input.Password placeholder="Confirm password" />
         </Form.Item>
 
         <Form.Item
