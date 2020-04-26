@@ -23,7 +23,11 @@ const GoalCard: FunctionComponent<Props> = (props) => {
       {props.showProgress && (
         <div>
           <div className="GoalCard__progress-top">
-            <span>{props.progress}</span>
+            {props.progress >= props.targetProgress ? (
+              <span>{props.progress}</span>
+            ) : (
+              <span className="u-color-danger">{props.progress}</span>
+            )}
             <span className="GoalCard__progress-top-slash">/</span>
             <span>{props.targetProgress}</span>
           </div>
