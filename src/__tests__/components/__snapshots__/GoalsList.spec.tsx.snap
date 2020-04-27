@@ -9,9 +9,7 @@ exports[`should render a list of goals 1`] = `
   >
     Upcoming
   </h4>
-  <div
-    class="GoalsList__cards"
-  >
+  <div>
     <div
       class="ant-spin-nested-loading"
     >
