@@ -9,7 +9,7 @@ exports[`should render an empty form 1`] = `
   >
     <form
       autocomplete="off"
-      class="ant-form ant-form-horizontal"
+      class="ant-form ant-form-horizontal GoalForm"
       id="goal"
     >
       <div
@@ -260,7 +260,7 @@ exports[`should render an empty form 1`] = `
               class="ant-form-item-control-input-content"
             >
               <button
-                class="ant-btn ant-btn-primary ant-btn-block"
+                class="ant-btn u-margin-bottom-sm ant-btn-primary ant-btn-block"
                 data-testid="goal-submit"
                 type="submit"
               >
@@ -268,11 +268,73 @@ exports[`should render an empty form 1`] = `
                   CREATE
                 </span>
               </button>
+              <button
+                class="ant-btn ant-btn-block"
+                type="button"
+              >
+                <span>
+                  Cancel
+                </span>
+              </button>
             </div>
           </div>
         </div>
       </div>
     </form>
+    <div
+      class="ScrollButton"
+    >
+      <button
+        class="ant-btn u-margin-bottom-sm ant-btn-circle ant-btn-icon-only"
+        type="button"
+      >
+        <span
+          aria-label="up"
+          class="anticon anticon-up"
+          role="img"
+        >
+          <svg
+            aria-hidden="true"
+            class=""
+            data-icon="up"
+            fill="currentColor"
+            focusable="false"
+            height="1em"
+            viewBox="64 64 896 896"
+            width="1em"
+          >
+            <path
+              d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
+            />
+          </svg>
+        </span>
+      </button>
+      <button
+        class="ant-btn ant-btn-circle ant-btn-icon-only"
+        type="button"
+      >
+        <span
+          aria-label="down"
+          class="anticon anticon-down"
+          role="img"
+        >
+          <svg
+            aria-hidden="true"
+            class=""
+            data-icon="down"
+            fill="currentColor"
+            focusable="false"
+            height="1em"
+            viewBox="64 64 896 896"
+            width="1em"
+          >
+            <path
+              d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+            />
+          </svg>
+        </span>
+      </button>
+    </div>
   </div>
 </div>
 `;
@@ -286,7 +348,7 @@ exports[`should render form with data - checklist type 1`] = `
   >
     <form
       autocomplete="off"
-      class="ant-form ant-form-horizontal"
+      class="ant-form ant-form-horizontal GoalForm"
       id="goal"
     >
       <div
@@ -463,6 +525,11 @@ exports[`should render form with data - checklist type 1`] = `
                 </span>
               </div>
             </div>
+          </div>
+          <div
+            class="ant-form-item-extra"
+          >
+            Target: 0 / day
           </div>
         </div>
       </div>
@@ -872,7 +939,7 @@ exports[`should render form with data - checklist type 1`] = `
               class="ant-form-item-control-input-content"
             >
               <button
-                class="ant-btn ant-btn-primary ant-btn-block"
+                class="ant-btn u-margin-bottom-sm ant-btn-primary ant-btn-block"
                 data-testid="goal-submit"
                 type="submit"
               >
@@ -880,24 +947,8 @@ exports[`should render form with data - checklist type 1`] = `
                   SAVE
                 </span>
               </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="ant-row ant-form-item"
-      >
-        <div
-          class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-16 ant-col-md-offset-4"
-        >
-          <div
-            class="ant-form-item-control-input"
-          >
-            <div
-              class="ant-form-item-control-input-content"
-            >
               <button
-                class="ant-btn ant-btn-block ant-btn-dangerous"
+                class="ant-btn u-margin-bottom-sm ant-btn-block ant-btn-dangerous"
                 data-testid="goal-delete"
                 type="button"
               >
@@ -905,11 +956,73 @@ exports[`should render form with data - checklist type 1`] = `
                   DELETE
                 </span>
               </button>
+              <button
+                class="ant-btn ant-btn-block"
+                type="button"
+              >
+                <span>
+                  Cancel
+                </span>
+              </button>
             </div>
           </div>
         </div>
       </div>
     </form>
+    <div
+      class="ScrollButton"
+    >
+      <button
+        class="ant-btn u-margin-bottom-sm ant-btn-circle ant-btn-icon-only"
+        type="button"
+      >
+        <span
+          aria-label="up"
+          class="anticon anticon-up"
+          role="img"
+        >
+          <svg
+            aria-hidden="true"
+            class=""
+            data-icon="up"
+            fill="currentColor"
+            focusable="false"
+            height="1em"
+            viewBox="64 64 896 896"
+            width="1em"
+          >
+            <path
+              d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
+            />
+          </svg>
+        </span>
+      </button>
+      <button
+        class="ant-btn ant-btn-circle ant-btn-icon-only"
+        type="button"
+      >
+        <span
+          aria-label="down"
+          class="anticon anticon-down"
+          role="img"
+        >
+          <svg
+            aria-hidden="true"
+            class=""
+            data-icon="down"
+            fill="currentColor"
+            focusable="false"
+            height="1em"
+            viewBox="64 64 896 896"
+            width="1em"
+          >
+            <path
+              d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+            />
+          </svg>
+        </span>
+      </button>
+    </div>
   </div>
 </div>
 `;
@@ -923,7 +1036,7 @@ exports[`should render form with data - number type 1`] = `
   >
     <form
       autocomplete="off"
-      class="ant-form ant-form-horizontal"
+      class="ant-form ant-form-horizontal GoalForm"
       id="goal"
     >
       <div
@@ -1100,6 +1213,11 @@ exports[`should render form with data - number type 1`] = `
                 </span>
               </div>
             </div>
+          </div>
+          <div
+            class="ant-form-item-extra"
+          >
+            Target: 6 / day
           </div>
         </div>
       </div>
@@ -1414,7 +1532,7 @@ exports[`should render form with data - number type 1`] = `
               class="ant-form-item-control-input-content"
             >
               <button
-                class="ant-btn ant-btn-primary ant-btn-block"
+                class="ant-btn u-margin-bottom-sm ant-btn-primary ant-btn-block"
                 data-testid="goal-submit"
                 type="submit"
               >
@@ -1422,24 +1540,8 @@ exports[`should render form with data - number type 1`] = `
                   SAVE
                 </span>
               </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="ant-row ant-form-item"
-      >
-        <div
-          class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-16 ant-col-md-offset-4"
-        >
-          <div
-            class="ant-form-item-control-input"
-          >
-            <div
-              class="ant-form-item-control-input-content"
-            >
               <button
-                class="ant-btn ant-btn-block ant-btn-dangerous"
+                class="ant-btn u-margin-bottom-sm ant-btn-block ant-btn-dangerous"
                 data-testid="goal-delete"
                 type="button"
               >
@@ -1447,11 +1549,73 @@ exports[`should render form with data - number type 1`] = `
                   DELETE
                 </span>
               </button>
+              <button
+                class="ant-btn ant-btn-block"
+                type="button"
+              >
+                <span>
+                  Cancel
+                </span>
+              </button>
             </div>
           </div>
         </div>
       </div>
     </form>
+    <div
+      class="ScrollButton"
+    >
+      <button
+        class="ant-btn u-margin-bottom-sm ant-btn-circle ant-btn-icon-only"
+        type="button"
+      >
+        <span
+          aria-label="up"
+          class="anticon anticon-up"
+          role="img"
+        >
+          <svg
+            aria-hidden="true"
+            class=""
+            data-icon="up"
+            fill="currentColor"
+            focusable="false"
+            height="1em"
+            viewBox="64 64 896 896"
+            width="1em"
+          >
+            <path
+              d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
+            />
+          </svg>
+        </span>
+      </button>
+      <button
+        class="ant-btn ant-btn-circle ant-btn-icon-only"
+        type="button"
+      >
+        <span
+          aria-label="down"
+          class="anticon anticon-down"
+          role="img"
+        >
+          <svg
+            aria-hidden="true"
+            class=""
+            data-icon="down"
+            fill="currentColor"
+            focusable="false"
+            height="1em"
+            viewBox="64 64 896 896"
+            width="1em"
+          >
+            <path
+              d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+            />
+          </svg>
+        </span>
+      </button>
+    </div>
   </div>
 </div>
 `;

@@ -19,7 +19,7 @@ const GoalsList: FunctionComponent<Props> = (props) => {
   return (
     <div className="GoalsList">
       <h4 className="GoalsList__title">{props.title}</h4>
-      <div className="GoalsList__cards">
+      <div>
         <Spin spinning={props.isLoading} className="GoalsList__spin">
           {props.goals.length === 0 ? (
             <Empty data-testid="empty" />
