@@ -1,5 +1,6 @@
 import React, { useState, useEffect, FunctionComponent } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
+import { RangeValue } from 'rc-picker/lib/interface';
 import moment from 'moment';
 import {
   Row,
@@ -28,6 +29,7 @@ import { Checklist, GoalResponse, Goal } from '../constants/interface';
 import { getGoal, deleteGoal } from '../services/goal';
 import { onError } from '../services/logger';
 import { tagEvent } from '../services/analytics';
+import getTargetProgressPerDay from '../utils/getTargetProgressPerDay';
 
 interface Props {
   type: 'create' | 'save';
@@ -41,6 +43,7 @@ const GoalForm: FunctionComponent<Props> = (props) => {
   const [showCompletedItems, setShowCompletedItems] = useState(false);
   const [isEditingItemId, setIsEditingItemId] = useState('');
   const [autoFocusAddItem, setAutoFocusAddItem] = useState(false);
+  const [targetProgress, setTargetProgress] = useState(-1);
 
   const { id } = useParams();
   const history = useHistory();
@@ -70,6 +73,7 @@ const GoalForm: FunctionComponent<Props> = (props) => {
         if (id) {
           setIsLoading(true);
           const goal: GoalResponse = await getGoal(id);
+          console.log('called onLoad');
           setGoal(goal);
           setChecklist(goal.content.checklist || []);
           const {
@@ -91,6 +95,13 @@ const GoalForm: FunctionComponent<Props> = (props) => {
             amount,
             progress,
           });
+          setTargetProgress(
+            getTargetProgressPerDay(
+              startDate,
+              endDate,
+              amount || goal.content.checklist?.length
+            )
+          );
           setIsLoading(false);
         }
       } catch (e) {
@@ -152,6 +163,42 @@ const GoalForm: FunctionComponent<Props> = (props) => {
     });
   };
 
+  const onPeriodChange = (
+    _: RangeValue<moment.Moment>,
+    format: [string, string]
+  ) => {
+    let amount = form.getFieldValue('amount') || 0;
+    if (checklist.length > 0) {
+      amount = checklist.length;
+    }
+    if (format[0] && amount > 0) {
+      setTargetProgress(getTargetProgressPerDay(format[0], format[1], amount));
+    }
+  };
+
+  const getTargetProgressOnAmountChange = (value: number | undefined) => {
+    const period = form.getFieldValue('period');
+    if ((!value && targetProgress >= 0) || !period) {
+      return -1;
+    }
+    const startDate = period[0].format('YYYY-MM-DD');
+    const endDate = period[1].format('YYYY-MM-DD');
+    return getTargetProgressPerDay(startDate, endDate, value);
+  };
+
+  const onAmountChange = (value: number | undefined) => {
+    setTargetProgress(getTargetProgressOnAmountChange(value));
+  };
+
+  const onTypeChange = (value: any) => {
+    if (value === goalType.NUMBER) {
+      onAmountChange(form.getFieldValue('amount'));
+    }
+    if (value === goalType.CHECKLIST) {
+      onAmountChange(checklist.length);
+    }
+  };
+
   const onAddChecklistItem = (e: React.MouseEvent | React.KeyboardEvent) => {
     e.preventDefault();
     const addItemInputName = 'checklistItem';
@@ -159,6 +206,7 @@ const GoalForm: FunctionComponent<Props> = (props) => {
     if (itemValue.length > inputLength.checklistItem) {
       return;
     }
+    onAmountChange(checklist.length + 1);
     setChecklist(
       checklist.concat({
         id: uuid(),
@@ -173,6 +221,7 @@ const GoalForm: FunctionComponent<Props> = (props) => {
   const onPasteChecklistItem = (e: React.ClipboardEvent<HTMLInputElement>) => {
     const pasteData = e.clipboardData && e.clipboardData.getData('text');
     const splitData = pasteData.split('\n');
+    onAmountChange(checklist.length + splitData.length);
     if (splitData.length > 1) {
       setChecklist(
         checklist.concat(
@@ -188,6 +237,7 @@ const GoalForm: FunctionComponent<Props> = (props) => {
   };
 
   const onRemoveChecklistItem = (id: string) => {
+    onAmountChange(checklist.length - 1);
     setChecklist(checklist.filter((item) => item.id !== id));
   };
 
@@ -289,11 +339,15 @@ const GoalForm: FunctionComponent<Props> = (props) => {
         >
           <Input.TextArea />
         </Form.Item>
-        <Form.Item name="period" label="Period">
-          <RangePicker />
+        <Form.Item
+          name="period"
+          label="Period"
+          extra={targetProgress >= 0 ? `Target: ${targetProgress} / day` : null}
+        >
+          <RangePicker onChange={onPeriodChange} />
         </Form.Item>
         <Form.Item name="type" label="Type">
-          <Select style={{ width: 120 }}>
+          <Select style={{ width: 120 }} onChange={onTypeChange}>
             <Option value={goalType.NUMBER}>Number</Option>
             <Option value={goalType.CHECKLIST}>Checklist</Option>
           </Select>
@@ -309,7 +363,7 @@ const GoalForm: FunctionComponent<Props> = (props) => {
               return (
                 <>
                   <Form.Item name="amount" label="Amount">
-                    <InputNumber min={0} />
+                    <InputNumber min={0} onChange={onAmountChange} />
                   </Form.Item>
                   <Form.Item
                     name="progress"
