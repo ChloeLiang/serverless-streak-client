@@ -30,6 +30,7 @@ import { getGoal, deleteGoal } from '../services/goal';
 import { onError } from '../services/logger';
 import { tagEvent } from '../services/analytics';
 import getTargetProgressPerDay from '../utils/getTargetProgressPerDay';
+import ScrollButton from './ScrollButton';
 
 interface Props {
   type: 'create' | 'save';
@@ -73,7 +74,6 @@ const GoalForm: FunctionComponent<Props> = (props) => {
         if (id) {
           setIsLoading(true);
           const goal: GoalResponse = await getGoal(id);
-          console.log('called onLoad');
           setGoal(goal);
           setChecklist(goal.content.checklist || []);
           const {
@@ -309,6 +309,7 @@ const GoalForm: FunctionComponent<Props> = (props) => {
     <Spin spinning={isLoading} size="large">
       <Form
         {...formLayout}
+        className="GoalForm"
         form={form}
         name="goal"
         onFinish={onFinish}
@@ -503,6 +504,7 @@ const GoalForm: FunctionComponent<Props> = (props) => {
           </Button>
         </Form.Item>
       </Form>
+      <ScrollButton />
     </Spin>
   );
 };
