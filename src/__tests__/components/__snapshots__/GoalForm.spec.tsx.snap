@@ -260,12 +260,20 @@ exports[`should render an empty form 1`] = `
               class="ant-form-item-control-input-content"
             >
               <button
-                class="ant-btn ant-btn-primary ant-btn-block"
+                class="ant-btn u-margin-bottom-sm ant-btn-primary ant-btn-block"
                 data-testid="goal-submit"
                 type="submit"
               >
                 <span>
                   CREATE
+                </span>
+              </button>
+              <button
+                class="ant-btn ant-btn-block"
+                type="button"
+              >
+                <span>
+                  Cancel
                 </span>
               </button>
             </div>
@@ -877,7 +885,7 @@ exports[`should render form with data - checklist type 1`] = `
               class="ant-form-item-control-input-content"
             >
               <button
-                class="ant-btn ant-btn-primary ant-btn-block"
+                class="ant-btn u-margin-bottom-sm ant-btn-primary ant-btn-block"
                 data-testid="goal-submit"
                 type="submit"
               >
@@ -885,29 +893,21 @@ exports[`should render form with data - checklist type 1`] = `
                   SAVE
                 </span>
               </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="ant-row ant-form-item"
-      >
-        <div
-          class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-16 ant-col-md-offset-4"
-        >
-          <div
-            class="ant-form-item-control-input"
-          >
-            <div
-              class="ant-form-item-control-input-content"
-            >
               <button
-                class="ant-btn ant-btn-block ant-btn-dangerous"
+                class="ant-btn u-margin-bottom-sm ant-btn-block ant-btn-dangerous"
                 data-testid="goal-delete"
                 type="button"
               >
                 <span>
                   DELETE
+                </span>
+              </button>
+              <button
+                class="ant-btn ant-btn-block"
+                type="button"
+              >
+                <span>
+                  Cancel
                 </span>
               </button>
             </div>
@@ -1424,7 +1424,7 @@ exports[`should render form with data - number type 1`] = `
               class="ant-form-item-control-input-content"
             >
               <button
-                class="ant-btn ant-btn-primary ant-btn-block"
+                class="ant-btn u-margin-bottom-sm ant-btn-primary ant-btn-block"
                 data-testid="goal-submit"
                 type="submit"
               >
@@ -1432,29 +1432,21 @@ exports[`should render form with data - number type 1`] = `
                   SAVE
                 </span>
               </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="ant-row ant-form-item"
-      >
-        <div
-          class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-16 ant-col-md-offset-4"
-        >
-          <div
-            class="ant-form-item-control-input"
-          >
-            <div
-              class="ant-form-item-control-input-content"
-            >
               <button
-                class="ant-btn ant-btn-block ant-btn-dangerous"
+                class="ant-btn u-margin-bottom-sm ant-btn-block ant-btn-dangerous"
                 data-testid="goal-delete"
                 type="button"
               >
                 <span>
                   DELETE
+                </span>
+              </button>
+              <button
+                class="ant-btn ant-btn-block"
+                type="button"
+              >
+                <span>
+                  Cancel
                 </span>
               </button>
             </div>

@@ -478,6 +478,7 @@ const GoalForm: FunctionComponent<Props> = (props) => {
         <Form.Item {...noLabelLayout}>
           <Button
             block
+            className="u-margin-bottom-sm"
             type="primary"
             htmlType="submit"
             loading={isLoading}
@@ -485,11 +486,10 @@ const GoalForm: FunctionComponent<Props> = (props) => {
           >
             {props.type.toUpperCase()}
           </Button>
-        </Form.Item>
-        {props.type === 'save' && (
-          <Form.Item {...noLabelLayout}>
+          {props.type === 'save' && (
             <Button
               block
+              className="u-margin-bottom-sm"
               danger
               loading={isLoading}
               onClick={onDeleteGoal}
@@ -497,8 +497,11 @@ const GoalForm: FunctionComponent<Props> = (props) => {
             >
               DELETE
             </Button>
-          </Form.Item>
-        )}
+          )}
+          <Button block onClick={() => history.push('/')}>
+            Cancel
+          </Button>
+        </Form.Item>
       </Form>
     </Spin>
   );

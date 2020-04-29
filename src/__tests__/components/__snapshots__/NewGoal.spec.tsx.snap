@@ -263,12 +263,20 @@ exports[`should render basic component 1`] = `
                 class="ant-form-item-control-input-content"
               >
                 <button
-                  class="ant-btn ant-btn-primary ant-btn-block"
+                  class="ant-btn u-margin-bottom-sm ant-btn-primary ant-btn-block"
                   data-testid="goal-submit"
                   type="submit"
                 >
                   <span>
                     CREATE
+                  </span>
+                </button>
+                <button
+                  class="ant-btn ant-btn-block"
+                  type="button"
+                >
+                  <span>
+                    Cancel
                   </span>
                 </button>
               </div>
