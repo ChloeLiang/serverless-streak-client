@@ -482,7 +482,6 @@ const GoalForm: FunctionComponent<Props> = (props) => {
             className="u-margin-bottom-sm"
             type="primary"
             htmlType="submit"
-            loading={isLoading}
             data-testid="goal-submit"
           >
             {props.type.toUpperCase()}
@@ -492,7 +491,6 @@ const GoalForm: FunctionComponent<Props> = (props) => {
               block
               className="u-margin-bottom-sm"
               danger
-              loading={isLoading}
               onClick={onDeleteGoal}
               data-testid="goal-delete"
             >
