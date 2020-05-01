@@ -6,14 +6,12 @@ const ScrollButton: FunctionComponent = () => {
   const onScrollToBottom = () => {
     window.scrollTo({
       top: document.body.scrollHeight,
-      behavior: 'smooth',
     });
   };
 
   const onScrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth',
     });
   };
 
