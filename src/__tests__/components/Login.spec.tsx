@@ -7,17 +7,16 @@ import {
 } from '@testing-library/react';
 import Login from '../../components/Login';
 import ERROR from '../../constants/error';
-import routerProps from '../../__mocks__/router-props';
 
 jest.mock('aws-amplify');
 
 it('should render basic component', () => {
-  const { container } = render(<Login {...routerProps} />);
+  const { container } = render(<Login />);
   expect(container.firstChild).toMatchSnapshot();
 });
 
 it('should validate username', async () => {
-  render(<Login {...routerProps} />);
+  render(<Login />);
   const usernameInput = screen.getByLabelText(/Username/i);
   const button = screen.getByRole('button');
 
@@ -37,7 +36,7 @@ it('should validate username', async () => {
 });
 
 it('should validate password', async () => {
-  render(<Login {...routerProps} />);
+  render(<Login />);
   const button = screen.getByRole('button');
 
   fireEvent.click(button);

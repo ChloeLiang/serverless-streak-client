@@ -35,7 +35,11 @@ const GoalCard: FunctionComponent<Props> = (props) => {
             <Tooltip title={props.progressTooltip}>
               <Progress
                 className="GoalCard__progress-bar"
-                percent={props.targetPercent}
+                percent={
+                  props.targetPercent > props.successPercent
+                    ? props.targetPercent
+                    : props.successPercent
+                }
                 successPercent={props.successPercent}
               />
             </Tooltip>
