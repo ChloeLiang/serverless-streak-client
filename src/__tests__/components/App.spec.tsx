@@ -71,6 +71,7 @@ it('should render login from', async () => {
   );
   await waitForElementToBeRemoved(() => screen.queryByText(/Loading/i));
   fireEvent.click(screen.getByText(/Login/i));
+  await screen.findByText(/Username/i);
   expect(screen.queryByText(/Username/i)).toBeTruthy();
   expect(screen.queryByText(/Password/i)).toBeTruthy();
 });
@@ -176,6 +177,7 @@ it('should render sign up form', async () => {
   );
   await waitForElementToBeRemoved(() => screen.queryByText(/Loading/i));
   fireEvent.click(screen.getByText(/Sign Up/i));
+  await screen.findByText(/Username/i);
   expect(screen.queryByText(/Username/i)).toBeTruthy();
   expect(screen.queryAllByText(/Password/i)).toHaveLength(2);
 });

@@ -4,7 +4,6 @@ import React, {
   useContext,
   FunctionComponent,
 } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
 import { Row, Col, Form, Input, Button, Alert } from 'antd';
 import { Auth } from 'aws-amplify';
 import ERROR from '../constants/error';
@@ -13,7 +12,7 @@ import { inputLength } from '../constants/enum';
 import { onError } from '../services/logger';
 import { tagEvent } from '../services/analytics';
 
-const Login: FunctionComponent<RouteComponentProps> = () => {
+const Login: FunctionComponent = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [loginError, setLoginError] = useState('');
   const [, setIsAuthenticated] = useContext(AuthContext);

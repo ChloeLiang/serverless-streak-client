@@ -4,7 +4,6 @@ import React, {
   useContext,
   FunctionComponent,
 } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
 import { Row, Col, Form, Input, Button, Alert } from 'antd';
 import { Auth } from 'aws-amplify';
 import ERROR from '../constants/error';
@@ -13,7 +12,7 @@ import { inputLength } from '../constants/enum';
 import { onError } from '../services/logger';
 import { tagEvent } from '../services/analytics';
 
-const SignUp: FunctionComponent<RouteComponentProps> = (props) => {
+const SignUp: FunctionComponent = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -74,7 +73,6 @@ const SignUp: FunctionComponent<RouteComponentProps> = (props) => {
       setSignUpError('');
       await Auth.signIn(username, password);
       setIsAuthenticated(true);
-      props.history.push('/');
     } catch (e) {
       setSignUpError(e.message);
       onError(e);

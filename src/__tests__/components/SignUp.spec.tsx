@@ -7,17 +7,16 @@ import {
 } from '@testing-library/react';
 import SignUp from '../../components/SignUp';
 import ERROR from '../../constants/error';
-import routerProps from '../../__mocks__/router-props';
 
 jest.mock('aws-amplify');
 
 it('should render basic component', () => {
-  const { container } = render(<SignUp {...routerProps} />);
+  const { container } = render(<SignUp />);
   expect(container.firstChild).toMatchSnapshot();
 });
 
 it('should validate username', async () => {
-  render(<SignUp {...routerProps} />);
+  render(<SignUp />);
   const usernameInput = screen.getByLabelText(/Username/i);
   const button = screen.getByTestId('signUp-submit');
 
@@ -37,7 +36,7 @@ it('should validate username', async () => {
 });
 
 it('should validate password', async () => {
-  render(<SignUp {...routerProps} />);
+  render(<SignUp />);
   const button = screen.getByTestId('signUp-submit');
 
   fireEvent.click(button);
@@ -46,7 +45,7 @@ it('should validate password', async () => {
 });
 
 it('should validate confirm password', async () => {
-  render(<SignUp {...routerProps} />);
+  render(<SignUp />);
   const button = screen.getByTestId('signUp-submit');
   const usernameInput = screen.getByLabelText(/Username/i);
   const passwordInput = screen.getAllByLabelText(/Password/i)[0];
