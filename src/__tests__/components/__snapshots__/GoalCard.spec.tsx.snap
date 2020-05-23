@@ -130,9 +130,9 @@ exports[`should render basic component - behind target 1`] = `
         </div>
         <span
           class="ant-progress-text"
-          title="60%"
+          title="30%"
         >
-          60%
+          30%
         </span>
       </div>
     </div>

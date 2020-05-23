@@ -14,6 +14,13 @@ interface Props {
 }
 
 const GoalCard: FunctionComponent<Props> = (props) => {
+  const getPercentage = (
+    _: number | undefined,
+    successPercent: number | undefined
+  ) => {
+    return successPercent + '%';
+  };
+
   return (
     <div className="GoalCard">
       <div className="GoalCard__header">
@@ -41,6 +48,7 @@ const GoalCard: FunctionComponent<Props> = (props) => {
                     : props.successPercent
                 }
                 successPercent={props.successPercent}
+                format={getPercentage}
               />
             </Tooltip>
           </div>
