@@ -6,10 +6,7 @@
   vertical-align: top;
   height: 100%;
   overflow-y: auto;
-
-  &:not(:last-child) {
-    margin-right: 1rem;
-  }
+  margin-right: 1rem;
 
   @include respond(sm) {
     width: calc(100% / 3);

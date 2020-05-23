@@ -41,7 +41,9 @@ const App: FunctionComponent = () => {
 
   const getRoutes = () => {
     let routes = (
-      <Suspense fallback={<Spin spinning size="large" />}>
+      <Suspense
+        fallback={<Spin spinning size="large" className="u-absCenter" />}
+      >
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/signup" component={SignUp} />
@@ -52,7 +54,9 @@ const App: FunctionComponent = () => {
     );
     if (isAuthenticated) {
       routes = (
-        <Suspense fallback={<Spin spinning size="large" />}>
+        <Suspense
+          fallback={<Spin spinning size="large" className="u-absCenter" />}
+        >
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/goals/new" component={NewGoal} />
@@ -66,7 +70,12 @@ const App: FunctionComponent = () => {
   };
 
   return (
-    <Spin spinning={isAuthenticating} size="large" tip="Loading...">
+    <Spin
+      spinning={isAuthenticating}
+      size="large"
+      tip="Loading..."
+      className="u-absCenter"
+    >
       <ErrorBoundary>
         <AuthContext.Provider value={[isAuthenticated, setIsAuthenticated]}>
           <Layout className="App">
