@@ -450,7 +450,7 @@ exports[`should render form with data - checklist type 1`] = `
                     placeholder="Start date"
                     readonly=""
                     size="12"
-                    value="2020-04-15"
+                    value="2020-08-13"
                   />
                 </div>
                 <div
@@ -468,7 +468,7 @@ exports[`should render form with data - checklist type 1`] = `
                     placeholder="End date"
                     readonly=""
                     size="12"
-                    value="2020-04-30"
+                    value="2020-08-15"
                   />
                 </div>
                 <div
@@ -529,7 +529,7 @@ exports[`should render form with data - checklist type 1`] = `
           <div
             class="ant-form-item-extra"
           >
-            Target: 0 / day
+            Target: 1 / day
           </div>
         </div>
       </div>
@@ -1138,7 +1138,7 @@ exports[`should render form with data - number type 1`] = `
                     placeholder="Start date"
                     readonly=""
                     size="12"
-                    value="2020-04-15"
+                    value="2020-08-13"
                   />
                 </div>
                 <div
@@ -1156,7 +1156,7 @@ exports[`should render form with data - number type 1`] = `
                     placeholder="End date"
                     readonly=""
                     size="12"
-                    value="2020-04-30"
+                    value="2020-08-22"
                   />
                 </div>
                 <div
@@ -1217,7 +1217,7 @@ exports[`should render form with data - number type 1`] = `
           <div
             class="ant-form-item-extra"
           >
-            Target: 6 / day
+            Target: 10 / day
           </div>
         </div>
       </div>
