@@ -529,7 +529,7 @@ exports[`should render form with data - checklist type 1`] = `
           <div
             class="ant-form-item-extra"
           >
-            Target: 0 / day
+            Target: 3 / day
           </div>
         </div>
       </div>
@@ -1217,7 +1217,7 @@ exports[`should render form with data - number type 1`] = `
           <div
             class="ant-form-item-extra"
           >
-            Target: 6 / day
+            Target: 100 / day
           </div>
         </div>
       </div>
