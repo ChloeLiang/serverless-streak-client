@@ -1,11 +1,10 @@
 import moment from 'moment';
 
 const getTargetProgressPerDay = (
-  startDate: string | undefined,
   endDate: string | undefined,
   amount: number | undefined
 ) => {
-  if (!startDate || !endDate || !amount) {
+  if (!endDate || !amount) {
     return -1;
   }
   const startOfDay = moment().isBefore(moment(endDate))
