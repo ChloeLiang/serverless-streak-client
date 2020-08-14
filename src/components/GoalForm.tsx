@@ -29,10 +29,7 @@ import { Checklist, GoalResponse, Goal } from '../constants/interface';
 import { getGoal, deleteGoal } from '../services/goal';
 import { onError } from '../services/logger';
 import { tagEvent } from '../services/analytics';
-import {
-  getTargetProgressPerDay,
-  getUncompletedChecklistCount,
-} from '../utils';
+import getTargetProgressPerDay from '../utils/getTargetProgressPerDay';
 import ScrollButton from './ScrollButton';
 
 interface Props {
@@ -98,15 +95,13 @@ const GoalForm: FunctionComponent<Props> = (props) => {
             amount,
             progress,
           });
-          let numberOfTodo = 0;
-          if (type === goalType.NUMBER) {
-            numberOfTodo = (amount || 0) - (progress || 0);
-          } else {
-            numberOfTodo = getUncompletedChecklistCount(
-              goal.content.checklist || []
-            );
-          }
-          setTargetProgress(getTargetProgressPerDay(endDate, numberOfTodo));
+          setTargetProgress(
+            getTargetProgressPerDay(
+              startDate,
+              endDate,
+              amount || goal.content.checklist?.length
+            )
+          );
           setIsLoading(false);
         }
       } catch (e) {
@@ -116,17 +111,6 @@ const GoalForm: FunctionComponent<Props> = (props) => {
     };
     onLoad();
   }, [id, form]);
-
-  useEffect(() => {
-    const period = form.getFieldValue('period');
-    if (!period) {
-      return setTargetProgress(-1);
-    }
-    const endDate = period[1].format('YYYY-MM-DD');
-    const numberOfTodo = getUncompletedChecklistCount(checklist);
-    setTargetProgress(getTargetProgressPerDay(endDate, numberOfTodo));
-    console.log('useEffect of checklist');
-  }, [checklist, form]);
 
   /**
    * TODO Define values type.
@@ -183,42 +167,27 @@ const GoalForm: FunctionComponent<Props> = (props) => {
     _: RangeValue<moment.Moment>,
     format: [string, string]
   ) => {
-    const type = form.getFieldValue('type');
-    const amount = form.getFieldValue('amount') || 0;
-    const progress = form.getFieldValue('progress') || 0;
-    let numberOfTodo = 0;
-    if (type === goalType.NUMBER) {
-      numberOfTodo = amount - progress;
-    } else {
-      numberOfTodo = getUncompletedChecklistCount(checklist);
+    let amount = form.getFieldValue('amount') || 0;
+    if (checklist.length > 0) {
+      amount = checklist.length;
     }
-    setTargetProgress(getTargetProgressPerDay(format[1], numberOfTodo));
+    if (format[0] && amount > 0) {
+      setTargetProgress(getTargetProgressPerDay(format[0], format[1], amount));
+    }
   };
 
   const getTargetProgressOnAmountChange = (value: number | undefined) => {
     const period = form.getFieldValue('period');
-    const amount = value || 0;
-    const progress = form.getFieldValue('progress') || 0;
     if ((!value && targetProgress >= 0) || !period) {
       return -1;
     }
+    const startDate = period[0].format('YYYY-MM-DD');
     const endDate = period[1].format('YYYY-MM-DD');
-    return getTargetProgressPerDay(endDate, amount - progress);
+    return getTargetProgressPerDay(startDate, endDate, value);
   };
 
   const onAmountChange = (value: number | undefined) => {
     setTargetProgress(getTargetProgressOnAmountChange(value));
-  };
-
-  const onProgressChange = () => {
-    const period = form.getFieldValue('period');
-    const amount = form.getFieldValue('amount') || 0;
-    const progress = form.getFieldValue('progress') || 0;
-    if (!period || !amount || !progress) {
-      return -1;
-    }
-    const endDate = period[1].format('YYYY-MM-DD');
-    setTargetProgress(getTargetProgressPerDay(endDate, amount - progress));
   };
 
   const onTypeChange = (value: any) => {
@@ -226,13 +195,7 @@ const GoalForm: FunctionComponent<Props> = (props) => {
       onAmountChange(form.getFieldValue('amount'));
     }
     if (value === goalType.CHECKLIST) {
-      const period = form.getFieldValue('period');
-      if (!period) {
-        return setTargetProgress(-1);
-      }
-      const endDate = period[1].format('YYYY-MM-DD');
-      const numberOfTodo = getUncompletedChecklistCount(checklist);
-      setTargetProgress(getTargetProgressPerDay(endDate, numberOfTodo));
+      onAmountChange(checklist.length);
     }
   };
 
@@ -243,6 +206,7 @@ const GoalForm: FunctionComponent<Props> = (props) => {
     if (itemValue.length > inputLength.checklistItem) {
       return;
     }
+    onAmountChange(checklist.length + 1);
     setChecklist(
       checklist.concat({
         id: uuid(),
@@ -257,6 +221,7 @@ const GoalForm: FunctionComponent<Props> = (props) => {
   const onPasteChecklistItem = (e: React.ClipboardEvent<HTMLInputElement>) => {
     const pasteData = e.clipboardData && e.clipboardData.getData('text');
     const splitData = pasteData.split('\n');
+    onAmountChange(checklist.length + splitData.length);
     if (splitData.length > 1) {
       setChecklist(
         checklist.concat(
@@ -272,6 +237,7 @@ const GoalForm: FunctionComponent<Props> = (props) => {
   };
 
   const onRemoveChecklistItem = (id: string) => {
+    onAmountChange(checklist.length - 1);
     setChecklist(checklist.filter((item) => item.id !== id));
   };
 
@@ -414,7 +380,7 @@ const GoalForm: FunctionComponent<Props> = (props) => {
                       }),
                     ]}
                   >
-                    <InputNumber min={0} onChange={onProgressChange} />
+                    <InputNumber min={0} />
                   </Form.Item>
                 </>
               );
